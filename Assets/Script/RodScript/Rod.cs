@@ -5,12 +5,17 @@ using System;
 
 public class Rod : MonoBehaviour
 {
-    private Quaternion orginRotate;
-    
+    private Vector3 origionPosition;
+    private Rigidbody rb;
+    private Transform ts;
 
 
     [SerializeField]
     private float resetSpeed;
+
+
+
+
     #region 协程事件
     private Coroutine resetRob;
 
@@ -21,20 +26,34 @@ public class Rod : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        Init();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        orginRotate = transform.rotation;
+        origionPosition = transform.position;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(IsReset())StopReset();
+        rb.isKinematic = true;
+        if(transform.position!=origionPosition)ts.Translate(Vector3.zero);
+        if(!IsReset()&&!PlayerManager.Instance.player.IsGrab)transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.identity,resetSpeed*Time.deltaTime);
+
+    }
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void FixedUpdate()
+    {
+
+        //if(IsReset())StopReset();
+        
     }
 
     /// <summary>
@@ -55,12 +74,13 @@ public class Rod : MonoBehaviour
         transform.eulerAngles = rotation;
         Debug.Log("Lock");
     }
+
     /// <summary>
     /// 是否回正
     /// </summary>
     /// <returns>bool</returns>
     public bool IsReset(){
-        return transform.rotation==Quaternion.Euler(0,0,0);
+        return transform.rotation.eulerAngles==Vector3.zero;
     }
 
     public void DoReset(){
@@ -72,6 +92,13 @@ public class Rod : MonoBehaviour
         StopCoroutine("ResetRob");
     }
 
+    public void Init(){
+        ts = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
+    }
+
 
     #region 协程
     /// <summary>
@@ -80,7 +107,7 @@ public class Rod : MonoBehaviour
     /// <returns></returns>
     IEnumerator ResetRob(){
         while(!IsReset()){
-            transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,0,0),resetSpeed*Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.identity,resetSpeed*Time.fixedDeltaTime);
             Debug.Log(transform.rotation.eulerAngles);
             yield return null;
         }
