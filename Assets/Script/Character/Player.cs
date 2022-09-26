@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private CharacterStats state;
+    public CharacterStats state;
 
     // Start is called before the first frame update
 

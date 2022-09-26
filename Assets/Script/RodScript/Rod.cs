@@ -34,7 +34,7 @@ public class Rod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(IsReset())StopReset();
     }
 
     /// <summary>
@@ -45,18 +45,20 @@ public class Rod : MonoBehaviour
     {
         RotationClamp();
     }
-
+    /// <summary>
+    /// 限制角度
+    /// </summary>
     public void RotationClamp(){
-        Vector3 tmp = transform.rotation.eulerAngles;
-        Vector3 clampAngleMax = new Vector3(45,0,45);
-        Vector3 clampAngleMin = new Vector3(-45,0,-45);
-        tmp.x = Mathf.Clamp(tmp.x,clampAngleMin.x,clampAngleMax.x);
-        tmp.z = Mathf.Clamp(tmp.z,clampAngleMin.z,clampAngleMax.z);
-        Quaternion angle = Quaternion.Euler(tmp);
-        transform.rotation = angle;
-
+        Vector3 rotation = new Vector3(GameTool.ChangeAngle(transform.rotation.eulerAngles.x),GameTool.ChangeAngle(transform.rotation.eulerAngles.y),GameTool.ChangeAngle(transform.rotation.eulerAngles.z));
+        rotation.x = Mathf.Clamp(rotation.x,-13,13);
+        rotation.z = Mathf.Clamp(rotation.z,-13,13);
+        transform.eulerAngles = rotation;
+        Debug.Log("Lock");
     }
-
+    /// <summary>
+    /// 是否回正
+    /// </summary>
+    /// <returns>bool</returns>
     public bool IsReset(){
         return transform.rotation==Quaternion.Euler(0,0,0);
     }
@@ -70,6 +72,12 @@ public class Rod : MonoBehaviour
         StopCoroutine("ResetRob");
     }
 
+
+    #region 协程
+    /// <summary>
+    /// 摇杆回正
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ResetRob(){
         while(!IsReset()){
             transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,0,0),resetSpeed*Time.deltaTime);
@@ -77,5 +85,5 @@ public class Rod : MonoBehaviour
             yield return null;
         }
     }
-
+    #endregion
 }
