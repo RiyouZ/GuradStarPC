@@ -33,7 +33,7 @@ public class Rod : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        origionPosition = transform.position;
+        origionPosition = transform.localPosition;
         
     }
 
@@ -41,8 +41,8 @@ public class Rod : MonoBehaviour
     void Update()
     {
         rb.isKinematic = true;
-        if(transform.position!=origionPosition)ts.Translate(Vector3.zero);
-        if(!IsReset()&&!PlayerManager.Instance.player.IsGrab)transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.identity,resetSpeed*Time.deltaTime);
+        if(transform.localPosition!=origionPosition)ts.Translate(Vector3.zero);
+        if(!IsReset()&&!PlayerManager.Instance.player.IsGrab)transform.localRotation = Quaternion.Slerp(transform.localRotation,Quaternion.identity,resetSpeed*Time.deltaTime);
 
     }
 
@@ -115,10 +115,10 @@ public class Rod : MonoBehaviour
     /// 限制角度
     /// </summary>
     public void RotationClamp(){
-        Vector3 rotation = new Vector3(GameTool.ChangeAngle(transform.rotation.eulerAngles.x),GameTool.ChangeAngle(transform.rotation.eulerAngles.y),GameTool.ChangeAngle(transform.rotation.eulerAngles.z));
+        Vector3 rotation = new Vector3(GameTool.ChangeAngle(transform.localRotation.x),GameTool.ChangeAngle(transform.localRotation.eulerAngles.y),GameTool.ChangeAngle(transform.localRotation.eulerAngles.z));
         rotation.x = Mathf.Clamp(rotation.x,-13,13);
         rotation.z = Mathf.Clamp(rotation.z,-13,13);
-        transform.eulerAngles = rotation;
+        transform.localEulerAngles = rotation;
         Debug.Log("Lock");
     }
 
@@ -127,7 +127,7 @@ public class Rod : MonoBehaviour
     /// </summary>
     /// <returns>bool</returns>
     public bool IsReset(){
-        return transform.rotation.eulerAngles==Vector3.zero;
+        return transform.localRotation.eulerAngles==Vector3.zero;
     }
 
     public void DoReset(){
@@ -154,7 +154,7 @@ public class Rod : MonoBehaviour
     /// <returns></returns>
     IEnumerator ResetRob(){
         while(!IsReset()){
-            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.identity,resetSpeed*Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation,Quaternion.identity,resetSpeed*Time.fixedDeltaTime);
             Debug.Log(transform.rotation.eulerAngles);
             yield return null;
         }
