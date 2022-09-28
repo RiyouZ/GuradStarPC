@@ -64,6 +64,53 @@ public class Rod : MonoBehaviour
     {
         RotationClamp();
     }
+
+    /// <summary>
+    /// OnTriggerStay is called once per frame for every Collider other
+    /// that is touching the trigger.
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
+    private void OnTriggerEnter(Collider coll)
+    {
+        //操作区域检测
+        if (coll.CompareTag("UpArea")){
+            BoatController.Instance.boatState.IsUp = true;
+        }
+        if (coll.CompareTag("DownArea")){
+            BoatController.Instance.boatState.IsDown = true;
+        }
+        if (coll.CompareTag("LeftArea")){
+            BoatController.Instance.boatState.IsLeft = true;
+        }
+        if (coll.CompareTag("RightArea")){
+            BoatController.Instance.boatState.IsRight = true;
+        }
+    }
+    /// <summary>
+    /// OnTriggerExit is called when the Collider other has stopped touching the trigger.
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
+    private void OnTriggerExit(Collider coll)
+    {
+        //操作区域检测
+        if (coll.CompareTag("UpArea")){
+            BoatController.Instance.boatState.IsUp = false;
+        }
+        if (coll.CompareTag("DownArea")){
+            BoatController.Instance.boatState.IsDown = false;
+        }
+        if (coll.CompareTag("LeftArea")){
+            BoatController.Instance.boatState.IsLeft = false;
+        }
+        if (coll.CompareTag("RightArea")){
+            BoatController.Instance.boatState.IsRight = false;
+        }
+
+        
+    }
+
+
+
     /// <summary>
     /// 限制角度
     /// </summary>
