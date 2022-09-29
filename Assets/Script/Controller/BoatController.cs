@@ -7,12 +7,16 @@ public class BoatController : Sigleton<BoatController>
 
     public GameObject boat;
     public BoatStats boatState;
+    //旋转需采用局部坐标
+    public Transform boatRot;
+
     public Transform boatTs;
     public Rigidbody boatRb;
 
     [SerializeField]
     private float rotX = 0;
     private float rotZ = 0;
+
 
 
 
@@ -46,7 +50,8 @@ public class BoatController : Sigleton<BoatController>
     }
 
     public void InitBoat(){
-        boat = GameObject.Find("Boat");
+        boat = GameObject.Find("BoatHull");
+        boatRot = GameObject.Find("BoatHull").GetComponent<Transform>();
         boatState = boat.GetComponent<BoatStats>();
         boatTs = boat.GetComponent<Transform>();
         boatRb = boat.GetComponent<Rigidbody>();
@@ -62,74 +67,63 @@ public class BoatController : Sigleton<BoatController>
 
     public void OperateBoatRotation(){
         if(boatState.IsDown){
-            rotX += boatState.RotSpeed*Time.deltaTime;
-            rotX = Mathf.Clamp(rotX,-90,90);
-            Vector3 rot = new Vector3(rotX,boatTs.localEulerAngles.y,boatTs.localEulerAngles.z);
-            boatTs.localEulerAngles = rot;
-            Debug.Log("Down"+rot);
+
+            boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,0));
         }
         if(boatState.IsUp){
-            rotX -= boatState.RotSpeed*Time.deltaTime;
-            rotX = Mathf.Clamp(rotX,-90,90);
-            Vector3 rot = new Vector3(rotX,boatTs.localEulerAngles.y,boatTs.localEulerAngles.z);
-            boatTs.localEulerAngles = rot;
-            Debug.Log("Up"+rot);
+
+            boatRot.Rotate(new Vector3(-boatState.RotSpeed*Time.deltaTime,0,0));
         }
         if(boatState.IsLeft){
-            rotZ -= boatState.RotSpeed*Time.deltaTime;
-            Vector3 rot = new Vector3(boatTs.localEulerAngles.x,boatTs.localEulerAngles.y,rotZ);
-            boatTs.localEulerAngles = rot;
-            Debug.Log("Left"+rot);
+
+            boatRot.Rotate(new Vector3(0,0,boatState.RotSpeed*Time.deltaTime));
         }
         if(boatState.IsRight){
-            rotZ += boatState.RotSpeed*Time.deltaTime;
-            Vector3 rot = new Vector3(boatTs.localEulerAngles.x,boatTs.localEulerAngles.y,rotZ);
-            boatTs.localEulerAngles = rot;
-            Debug.Log("Right"+rot);
+
+            boatRot.Rotate(new Vector3(0,0,-boatState.RotSpeed*Time.deltaTime));
         }
         
     }
     
     public void OperateBoatForward(){
         if(boatState.IsForward){
+
+            // Vector3 direct = (forwardPoint.localPosition-boatTs.position).normalized;
             boatState.CurSpeed = boatState.CurSpeed+boatState.AccSpeed;
-            if(boatState.IsDown){
-                boatRb.velocity = new Vector3(1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            }else if(boatState.IsUp){
-                boatRb.velocity = new Vector3(-1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            }else{
-                boatRb.velocity = Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime;
-            }
+            // boatRb.AddForceAtPosition(direct,forwardPoint.localPosition);
 
+            // if(boatState.IsDown){
+            //     boatRb.velocity = new Vector3(0,-1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
+            // }else if(boatState.IsUp){
+            //     boatRb.velocity = new Vector3(0,1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
+            // }else if(boatState.IsLeft){
+            //     boatRb.velocity = new Vector3(1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
+            // }else if(boatState.IsRight){
+            //     boatRb.velocity = new Vector3(-1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
+            // }else{
 
+            // }
+
+           boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
         }else{
-            boatState.CurSpeed = boatState.CurSpeed-boatState.AccSpeed;
-            boatRb.AddForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
-        }
-        if(boatState.IsBrake){
-            boatState.CurSpeed = boatState.CurSpeed-boatState.BrakeSpeed;
-            boatRb.AddForce(Vector3.forward*-boatState.CurSpeed*Time.fixedDeltaTime);
+            if(boatState.IsBrake){
+                boatState.CurSpeed = boatState.CurSpeed-boatState.BrakeSpeed;
+            }else{
+                boatState.CurSpeed = boatState.CurSpeed-boatState.AccSpeed;
+
+            }
+            boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
         }
         if(boatState.CurSpeed==0)boatRb.velocity = Vector3.zero;
     }
 
-    public void IsForward(){
-        boatState.IsForward = true;
-    }
-
-    public void IsUnForward(){
-        boatState.IsForward = false;
-    }
-
-    public void IsBrake(){
-        boatState.IsBrake = true;
-    }
-
-    public void IsUnBrake(){
-        boatState.IsBrake = false;
+    public void IsForward(bool value){
+        boatState.IsForward = value;
     }
 
 
-
+    public void IsBrake(bool value){
+        boatState.IsBrake = value;
+    }
 
 }

@@ -9,6 +9,7 @@ public class BoatSO : ScriptableObject
 
     [Header("速度")]
     public float brakeSpeed;
+    public int MultiBrakeSpeed;
     public float rotSpeed;
     public float curSpeed;
     public float maxSpeed;

@@ -44,7 +44,7 @@ public class BoatStats:MonoBehaviour
 
     public float BrakeSpeed{
         set{
-            stats.brakeSpeed = Mathf.Max(0,stats.maxSpeed*2);
+            stats.brakeSpeed = Mathf.Max(0,stats.curSpeed*stats.MultiBrakeSpeed);
         }
         get{
             return stats.brakeSpeed;
