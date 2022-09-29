@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c950b7706ec043b499e070006a819a77, type: 3}
+  m_Name: Boat
+  m_EditorClassIdentifier: 
+  brakeSpeed: 1
+  MultiBrakeSpeed: 10
+  rotSpeed: 8
+  curSpeed: 0
+  maxSpeed: 100
+  accSpeed: 0.2
+  curOil: 10
+  maxOil: 10
+  isLeft: 0
+  isRight: 0
+  isUp: 0
+  isDown: 0
+  isForward: 0
+  isBrake: 0
+  isUnpower: 0

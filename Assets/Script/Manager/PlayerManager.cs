@@ -6,7 +6,6 @@ public class PlayerManager :Sigleton<PlayerManager>
 {
     public CharacterStats player;
     public bool isHot;
-    public bool isAcc;
 
     protected override void Awake()
     {

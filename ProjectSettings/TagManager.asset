@@ -18,6 +18,10 @@ TagManager:
   - ScarecrowHat
   - ScarecrowHead
   - FireableArrow
+  - DownArea
+  - UpArea
+  - RightArea
+  - LeftArea
   layers:
   - Default
   - TransparentFX

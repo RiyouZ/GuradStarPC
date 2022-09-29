@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private CharacterStats state;
+    public CharacterStats state;
 
     // Start is called before the first frame update
 
@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     public void Init(){
         state.CurHealth = state.MaxHealth;
         state.IsGrab = false;
-        state.CurOil = state.MaxOil;
     }
 
 
