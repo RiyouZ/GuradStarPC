@@ -8,6 +8,7 @@ public class Rod : MonoBehaviour
     private Vector3 origionPosition;
     private Rigidbody rb;
     private Transform ts;
+    private Transform pivot;
 
 
     [SerializeField]
@@ -41,8 +42,13 @@ public class Rod : MonoBehaviour
     void Update()
     {
         rb.isKinematic = true;
-        if(transform.localPosition!=origionPosition)ts.Translate(Vector3.zero);
-        if(!IsReset()&&!PlayerManager.Instance.player.IsGrab)transform.localRotation = Quaternion.Slerp(transform.localRotation,Quaternion.identity,resetSpeed*Time.deltaTime);
+        ts.localPosition = Vector3.zero;
+        //if(transform.localPosition!=origionPosition)ts.Translate(Vector3.zero);
+        //复位
+        if(!IsReset()&&!PlayerManager.Instance.player.IsGrab){
+            transform.localRotation = Quaternion.Slerp(transform.localRotation,Quaternion.identity,resetSpeed*Time.deltaTime);
+            // Vector3 dirt = ts.localEulerAngles.normalized;
+        }
 
     }
 
@@ -62,8 +68,9 @@ public class Rod : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
+        //限制角度
         RotationClamp();
-    }
+    } 
 
     /// <summary>
     /// OnTriggerStay is called once per frame for every Collider other
@@ -115,7 +122,7 @@ public class Rod : MonoBehaviour
     /// 限制角度
     /// </summary>
     public void RotationClamp(){
-        Vector3 rotation = new Vector3(GameTool.ChangeAngle(transform.localRotation.x),GameTool.ChangeAngle(transform.localRotation.eulerAngles.y),GameTool.ChangeAngle(transform.localRotation.eulerAngles.z));
+        Vector3 rotation = new Vector3(GameTool.ChangeAngle(transform.localEulerAngles.x),GameTool.ChangeAngle(transform.localEulerAngles.y),GameTool.ChangeAngle(transform.localEulerAngles.z));
         rotation.x = Mathf.Clamp(rotation.x,-13,13);
         rotation.z = Mathf.Clamp(rotation.z,-13,13);
         transform.localEulerAngles = rotation;
@@ -127,37 +134,21 @@ public class Rod : MonoBehaviour
     /// </summary>
     /// <returns>bool</returns>
     public bool IsReset(){
-        return transform.localRotation.eulerAngles==Vector3.zero;
+        return transform.localEulerAngles==Vector3.zero;
     }
 
-    public void DoReset(){
-        resetRob =  StartCoroutine("ResetRob");
-        Debug.Log(resetRob);
-    }
 
-    public void StopReset(){
-        StopCoroutine("ResetRob");
-    }
 
     public void Init(){
         ts = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        pivot = GameObject.Find("RodPivot").GetComponent<Transform>();
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
     }
 
 
     #region 协程
-    /// <summary>
-    /// 摇杆回正
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator ResetRob(){
-        while(!IsReset()){
-            transform.localRotation = Quaternion.Slerp(transform.localRotation,Quaternion.identity,resetSpeed*Time.fixedDeltaTime);
-            Debug.Log(transform.rotation.eulerAngles);
-            yield return null;
-        }
-    }
+
     #endregion
 }
