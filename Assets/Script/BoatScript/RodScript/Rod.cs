@@ -81,16 +81,16 @@ public class Rod : MonoBehaviour
     {
         //操作区域检测
         if (coll.CompareTag("UpArea")){
-            BoatController.Instance.boatState.IsUp = true;
+            BoatController.Instance.boat.boatState.IsUp = true;
         }
         if (coll.CompareTag("DownArea")){
-            BoatController.Instance.boatState.IsDown = true;
+            BoatController.Instance.boat.boatState.IsDown = true;
         }
         if (coll.CompareTag("LeftArea")){
-            BoatController.Instance.boatState.IsLeft = true;
+            BoatController.Instance.boat.boatState.IsLeft = true;
         }
         if (coll.CompareTag("RightArea")){
-            BoatController.Instance.boatState.IsRight = true;
+            BoatController.Instance.boat.boatState.IsRight = true;
         }
     }
     /// <summary>
@@ -101,16 +101,16 @@ public class Rod : MonoBehaviour
     {
         //操作区域检测
         if (coll.CompareTag("UpArea")){
-            BoatController.Instance.boatState.IsUp = false;
+            BoatController.Instance.boat.boatState.IsUp = false;
         }
         if (coll.CompareTag("DownArea")){
-            BoatController.Instance.boatState.IsDown = false;
+            BoatController.Instance.boat.boatState.IsDown = false;
         }
         if (coll.CompareTag("LeftArea")){
-            BoatController.Instance.boatState.IsLeft = false;
+            BoatController.Instance.boat.boatState.IsLeft = false;
         }
         if (coll.CompareTag("RightArea")){
-            BoatController.Instance.boatState.IsRight = false;
+            BoatController.Instance.boat.boatState.IsRight = false;
         }
 
         

@@ -5,19 +5,7 @@ using UnityEngine;
 public class BoatController : Sigleton<BoatController>
 {
 
-    public GameObject boat;
-    public BoatStats boatState;
-    //旋转需采用局部坐标
-    public Transform boatRot;
-
-    public Transform boatTs;
-    public Rigidbody boatRb;
-
-    [SerializeField]
-    private float rotX = 0;
-    private float rotZ = 0;
-
-
+    public Boat boat;
 
 
     /// <summary>
@@ -50,80 +38,51 @@ public class BoatController : Sigleton<BoatController>
     }
 
     public void InitBoat(){
-        boat = GameObject.Find("BoatHull");
-        boatRot = GameObject.Find("BoatHull").GetComponent<Transform>();
-        boatState = boat.GetComponent<BoatStats>();
-        boatTs = boat.GetComponent<Transform>();
-        boatRb = boat.GetComponent<Rigidbody>();
-        boatRb.velocity = Vector3.zero;
-        boatState.CurOil = boatState.MaxOil;
-        boatState.IsUp = false;
-        boatState.IsDown = false;
-        boatState.IsLeft = false;
-        boatState.IsRight = false;
-        boatState.IsForward = false;
-        boatState.IsBrake = false;
+        boat = GameObject.Find("BoatHull").GetComponent<Boat>();
+
     }
 
     public void OperateBoatRotation(){
-        if(boatState.IsDown){
+        if(boat.boatState.IsDown){
 
-            boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,0));
+            boat.RotDown();
         }
-        if(boatState.IsUp){
+        if(boat.boatState.IsUp){
 
-            boatRot.Rotate(new Vector3(-boatState.RotSpeed*Time.deltaTime,0,0));
+            boat.RotUp();
         }
-        if(boatState.IsLeft){
+        if(boat.boatState.IsLeft){
 
-            boatRot.Rotate(new Vector3(0,0,boatState.RotSpeed*Time.deltaTime));
+            boat.RotLeft();
         }
-        if(boatState.IsRight){
+        if(boat.boatState.IsRight){
 
-            boatRot.Rotate(new Vector3(0,0,-boatState.RotSpeed*Time.deltaTime));
+            boat.RotRight();
         }
         
     }
     
     public void OperateBoatForward(){
-        if(boatState.IsForward){
-
-            // Vector3 direct = (forwardPoint.localPosition-boatTs.position).normalized;
-            boatState.CurSpeed = boatState.CurSpeed+boatState.AccSpeed;
-            // boatRb.AddForceAtPosition(direct,forwardPoint.localPosition);
-
-            // if(boatState.IsDown){
-            //     boatRb.velocity = new Vector3(0,-1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsUp){
-            //     boatRb.velocity = new Vector3(0,1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsLeft){
-            //     boatRb.velocity = new Vector3(1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsRight){
-            //     boatRb.velocity = new Vector3(-1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else{
-
-            // }
-
-           boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
+        if(boat.boatState.IsForward){
+            boat.boatState.CurSpeed = boat.boatState.CurSpeed+boat.boatState.AccSpeed;
         }else{
-            if(boatState.IsBrake){
-                boatState.CurSpeed = boatState.CurSpeed-boatState.BrakeSpeed;
+            if(boat.boatState.IsBrake){
+                boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.BrakeSpeed;
             }else{
-                boatState.CurSpeed = boatState.CurSpeed-boatState.AccSpeed;
-
+                boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.AccSpeed;
             }
-            boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
         }
-        if(boatState.CurSpeed==0)boatRb.velocity = Vector3.zero;
+        boat.TsForward(boat.boatState.CurSpeed);
+        if(boat.boatState.CurSpeed==0)boat.TsBrake();
     }
-
+    
     public void IsForward(bool value){
-        boatState.IsForward = value;
+        boat.boatState.IsForward = value;
     }
 
 
     public void IsBrake(bool value){
-        boatState.IsBrake = value;
+        boat.boatState.IsBrake = value;
     }
 
 }
