@@ -7,7 +7,7 @@ public class Boat : MonoBehaviour
     public Rigidbody rb;
     public BoatStats boatState;
     public Transform boatRot;
-
+    public Weapon weapon;
 /// <summary>
 /// Awake is called when the script instance is being loaded.
 /// </summary>
@@ -18,11 +18,12 @@ public class Boat : MonoBehaviour
 
 
     public void Init(){
+        weapon = GameObject.Find("Weapon").GetComponent<Weapon>();
         boatRot = GetComponent<Transform>();
         boatState = GetComponent<BoatStats>();
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        boatState.CurSpeed = boatState.MaxSpeed;
+        boatState.CurSpeed = boatState.MaxSpeed*0.5f;
         boatState.CurOil = boatState.MaxOil;
         boatState.IsUp = false;
         boatState.IsDown = false;
@@ -50,7 +51,9 @@ public class Boat : MonoBehaviour
     public void TsBrake(){
         rb.velocity = Vector3.zero;
     }
-
+    public void Shoot(GameObject Target){
+        weapon.ShootEnemy(Target);
+    }
 
 
 }

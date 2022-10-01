@@ -5,6 +5,16 @@ using UnityEngine;
 public class BoatStats:MonoBehaviour
 {
     public BoatSO stats;
+    public BoatSO tmpStats;
+
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        if(tmpStats)stats = Instantiate(tmpStats);
+    }
 
     #region :数值赋值
 

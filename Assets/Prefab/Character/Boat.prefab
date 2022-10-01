@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2051297163}
   - component: {fileID: 2051297165}
   - component: {fileID: 2051297164}
+  - component: {fileID: 2051297166}
   m_Layer: 6
-  m_Name: BaseCramea
+  m_Name: BoatCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051297162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.465, z: 0}
+  m_LocalPosition: {x: 0, y: 0.465, z: 0.932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1354430310846724826}
@@ -109,6 +110,18 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &2051297166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051297162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5912ea6d73e4949a496bfa348b059b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1354430310846724825
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +133,7 @@ GameObject:
   - component: {fileID: 1354430310846724826}
   - component: {fileID: 1354430310846724827}
   - component: {fileID: 1882902136168706066}
+  - component: {fileID: 375771802}
   m_Layer: 6
   m_Name: BoatHull
   m_TagString: Untagged
@@ -172,6 +186,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: b30d2936f74ce744a8fd66e855027052, type: 2}
+--- !u!114 &375771802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354430310846724825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52663ff81b132a4b91b3bad713809b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  boatState: {fileID: 0}
+  boatRot: {fileID: 0}
 --- !u!1 &1354430311087789725
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,8 +12,12 @@ public class CharacterSO : ScriptableObject
     public float hotTime;
     public float curTime;
     public float coolTime;
+    //攻击力
+    public int atkVal;
 
     [Header("操作状态")]
+
+    public bool isShoot;
     public bool isGrab;
     public bool isDead;
 

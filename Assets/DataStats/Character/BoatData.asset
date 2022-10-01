@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c950b7706ec043b499e070006a819a77, type: 3}
-  m_Name: Boat
+  m_Name: BoatData
   m_EditorClassIdentifier: 
   brakeSpeed: 1
   MultiBrakeSpeed: 10
-  rotSpeed: 8
+  rotSpeed: 10
   curSpeed: 0
-  maxSpeed: 100
+  maxSpeed: 400
   accSpeed: 0.2
   curOil: 10
   maxOil: 10

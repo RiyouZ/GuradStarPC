@@ -22,11 +22,12 @@ TagManager:
   - UpArea
   - RightArea
   - LeftArea
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemyLayer
   - Water
   - UI
   - BoatLayer

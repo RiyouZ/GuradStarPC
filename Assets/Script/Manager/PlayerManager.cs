@@ -10,14 +10,19 @@ public class PlayerManager :Sigleton<PlayerManager>
     protected override void Awake()
     {
         base.Awake();
-
     }
 
     public void RegisterPlayer(CharacterStats value){
         player = value;
     }
 
+    public void IsShoot(){
+        player.IsShoot = true;
+    }
 
+    public void IsUnShoot(){
+        player.IsShoot = false;
+    }
 
     public void IsGrab(){
         player.IsGrab = true;
