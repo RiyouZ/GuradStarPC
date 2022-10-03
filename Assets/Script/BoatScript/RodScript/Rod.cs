@@ -125,7 +125,6 @@ public class Rod : MonoBehaviour
         rotation.x = Mathf.Clamp(rotation.x,-13,13);
         rotation.z = Mathf.Clamp(rotation.z,-13,13);
         transform.localEulerAngles = rotation;
-        Debug.Log("Lock");
     }
 
     /// <summary>

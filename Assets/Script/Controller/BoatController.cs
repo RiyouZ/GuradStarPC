@@ -6,13 +6,10 @@ using System;
 public class BoatController : Sigleton<BoatController>
 {
 
-    public enum RotState{UP,DOWN,RIGHT,LEFT};
+    public enum RotState{UP,DOWN,RIGHT,LEFT,NULL};
     public RotState rotState;
     public Boat boat;
     public Weapon weapon;
-
-    public event Action<GameObject> ShootToEnemy;
-
     private Ray weaponRay;
     private RaycastHit hitInfo;
 
@@ -49,7 +46,6 @@ public class BoatController : Sigleton<BoatController>
     }
     #region:基本移动逻辑
     public void OperateBoatRotation(){
-        if(!PlayerManager.Instance.player.IsGrab)return;
         if(boat.boatState.IsDown){
             rotState = RotState.DOWN;
         }else if(boat.boatState.IsUp){
@@ -59,7 +55,7 @@ public class BoatController : Sigleton<BoatController>
         }else if(boat.boatState.IsRight){
             rotState = RotState.RIGHT;
         }else{
-            return;
+            rotState = RotState.NULL;
         }
         
         switch(rotState){
@@ -75,22 +71,24 @@ public class BoatController : Sigleton<BoatController>
             case RotState.RIGHT:
                 boat.RotRight();
                 break;
+            case RotState.NULL:
+                break;
         }
-        
     }
     
     public void OperateBoatForward(){
-        if(!PlayerManager.Instance.player.IsGrab)return;
+        if(PlayerManager.Instance.player.IsGrab==false)return;
         if(boat.boatState.IsForward){
             boat.boatState.CurSpeed = boat.boatState.CurSpeed+boat.boatState.AccSpeed;
+            boat.TsForward(boat.boatState.CurSpeed);
         }else{
             if(boat.boatState.IsBrake){
                 boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.BrakeSpeed;
             }else{
                 boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.AccSpeed;
             }
+            boat.TsForward(boat.boatState.CurSpeed);
         }
-        boat.TsForward(boat.boatState.CurSpeed);
         if(boat.boatState.CurSpeed==0)boat.TsBrake();
     }
     
@@ -106,27 +104,14 @@ public class BoatController : Sigleton<BoatController>
     
     public void OperateShoot(){
         PlayerManager.Instance.player.CurCoolTime-=Time.deltaTime;
+        //Debug
+        Debug.Log(PlayerManager.Instance.player.CurCoolTime);
         if(PlayerManager.Instance.player.CurCoolTime>0)return;
-        if(!PlayerManager.Instance.player.IsShoot&&!PlayerManager.Instance.player.IsGrab)return;
-        RayToTarget();
+        Debug.Log("TimeReady");
+        if(!PlayerManager.Instance.player.IsShoot)return;
+        boat.Shoot();
+        //RayToTarget();
         PlayerManager.Instance.player.CurCoolTime = PlayerManager.Instance.player.CoolTime;
-    }
-
-    //武器射线检测
-    public void RayToTarget(){
-        weaponRay = new Ray(weapon.originPoint,weapon.transform.forward);
-        bool isHit = Physics.Raycast(weaponRay,out hitInfo,1<<3);
-        Debug.DrawRay(weaponRay.origin,weaponRay.direction,Color.blue);
-        if(!isHit){
-            //TODO:没有击中的特效绘制
-            return;
-        }
-        GameObject target = hitInfo.collider.gameObject;
-        if(target.CompareTag("Enemy")){
-            ShootToEnemy?.Invoke(target);
-            if(PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,target.GetComponent<Enemy>().state)<=0)Destroy(target);
-        }
-
     }
 
     //Debug
@@ -135,10 +120,9 @@ public class BoatController : Sigleton<BoatController>
     /// </summary>
     private void OnDrawGizmos()
     {
+        //武器检测
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(weaponRay);
-
-
+       // Gizmos.DrawRay(weapon.originPoint.transform.position,weapon.originPoint.transform.forward*100);
     }
 
 }

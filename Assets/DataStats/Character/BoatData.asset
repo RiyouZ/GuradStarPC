@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brakeSpeed: 1
   MultiBrakeSpeed: 10
-  rotSpeed: 10
+  rotSpeed: 20
   curSpeed: 0
   maxSpeed: 400
   accSpeed: 0.2

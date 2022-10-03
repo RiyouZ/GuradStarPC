@@ -4,31 +4,30 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField]
-    public Vector3 originPoint;
-
-
+    public RayAim ray;
+    public RaycastHit hitInfo;
     /// <summary>
-    /// Awake is called when the script instance is being loaded.
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
     /// </summary>
-    private void Awake()
-    {
-        Init();
-    }
     private void Start()
     {
+        ray = GameObject.FindWithTag("Target").GetComponent<RayAim>();
+    }
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+
 
     }
 
-    public void Init(){
-        originPoint = GameObject.Find("WeaponPoint").GetComponent<Transform>().position;   
-    }
-
-    public void ShootEnemy(GameObject enemy){
-        //TODO:：发射子弹
-    }
-
-    
+    public void Shoot(){
+        GameObject laser = LaserPool.Instance.Pop();
+        laser.transform.position =  transform.position;
+        laser.GetComponent<Laser>().shootTarget = ray.target;
+    }    
 
 
 }

@@ -15,8 +15,8 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 0
   hotTime: 0
-  curTime: 0
-  coolTime: 5
+  curCoolTime: 0
+  coolTime: 2
   atkVal: 1
   isShoot: 0
   isGrab: 0

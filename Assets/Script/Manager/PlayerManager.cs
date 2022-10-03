@@ -17,6 +17,7 @@ public class PlayerManager :Sigleton<PlayerManager>
     }
 
     public void IsShoot(){
+        Debug.Log("IsShoot!");
         player.IsShoot = true;
     }
 

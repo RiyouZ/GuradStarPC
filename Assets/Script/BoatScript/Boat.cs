@@ -13,6 +13,15 @@ public class Boat : MonoBehaviour
 /// </summary>
     private void Awake()
     {
+        //Init();
+    }
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    private void Start()
+    {
         Init();
     }
 
@@ -23,7 +32,7 @@ public class Boat : MonoBehaviour
         boatState = GetComponent<BoatStats>();
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        boatState.CurSpeed = boatState.MaxSpeed*0.5f;
+        boatState.CurSpeed = 0;
         boatState.CurOil = boatState.MaxOil;
         boatState.IsUp = false;
         boatState.IsDown = false;
@@ -51,8 +60,8 @@ public class Boat : MonoBehaviour
     public void TsBrake(){
         rb.velocity = Vector3.zero;
     }
-    public void Shoot(GameObject Target){
-        weapon.ShootEnemy(Target);
+    public void Shoot(){
+        weapon.Shoot();
     }
 
 
