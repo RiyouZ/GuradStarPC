@@ -22,6 +22,8 @@ public class BaseCamera : MonoBehaviour
     /// </summary>
     private void Update()
     {
+
+        
     }
 
     /// <summary>
