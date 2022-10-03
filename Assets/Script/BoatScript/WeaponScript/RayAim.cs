@@ -16,7 +16,7 @@ public class RayAim : MonoBehaviour
         if(Physics.Raycast(ray,out hitInfo))
             target = hitInfo.point;
         else
-            target = (transform.position-camera.transform.position)*100;
+            target = (transform.position-camera.transform.position)*200;
     }
     //Debug
     /// <summary>

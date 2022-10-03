@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         ray = GameObject.FindWithTag("Target").GetComponent<RayAim>();
     }
@@ -25,7 +25,6 @@ public class Weapon : MonoBehaviour
 
     public void Shoot(){
         GameObject laser = LaserPool.Instance.Pop();
-        laser.transform.position =  transform.position;
         laser.GetComponent<Laser>().shootTarget = ray.target;
     }    
 

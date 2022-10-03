@@ -4814,10 +4814,10 @@ GameObject:
   - component: {fileID: 198447062717955468}
   - component: {fileID: 199841310213611012}
   - component: {fileID: 54929995699331496}
-  - component: {fileID: 114756686390696780}
   - component: {fileID: 114880781407873270}
   - component: {fileID: 4361783620474715523}
   - component: {fileID: 5939279310809001357}
+  - component: {fileID: 7438832992183357826}
   m_Layer: 10
   m_Name: Laser_Blue_Medium_Projectile
   m_TagString: FX
@@ -9634,41 +9634,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523153560657062}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 0.5
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
+  m_Interpolate: 1
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &114756686390696780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1523153560657062}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 538d28f745155f34fba977c5c1026e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactPrefab: {fileID: 1879272669879180, guid: 12b4684b6dfa54542af44b834b325d62,
-    type: 3}
-  explosionPrefab: {fileID: 0}
-  thrust: 0
-  thisRigidbody: {fileID: 54929995699331496}
-  particleKillGroup: {fileID: 0}
-  LookRotation: 0
-  Missile: 1
-  missileTarget: {fileID: 0}
-  projectileSpeed: 1
-  projectileSpeedMultiplier: 0.1
-  ignorePrevRotation: 0
-  explodeOnTimer: 0
-  explosionTimer: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &114880781407873270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9761,7 +9734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a895231490da6545890b1e1794f8704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathtimer: 1
+  deathtimer: 2
 --- !u!114 &5939279310809001357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9778,8 +9751,21 @@ MonoBehaviour:
   rb: {fileID: 0}
   isShoot: 0
   shootTarget: {x: 0, y: 0, z: 0}
-  speed: 2
-  multiSpeed: 0.5
+  speed: 10
+  multiSpeed: 2
+--- !u!65 &7438832992183357826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523153560657062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13487494, y: 0.1121084, z: 1.4151992}
+  m_Center: {x: 0, y: 0.0018396787, z: -0.0020586848}
 --- !u!1 &1598420234293714
 GameObject:
   m_ObjectHideFlags: 0

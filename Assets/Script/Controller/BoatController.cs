@@ -37,7 +37,6 @@ public class BoatController : Sigleton<BoatController>
     private void FixedUpdate()
     {   
         OperateBoatForward();
-
     }
     //初始化
     public void InitBoat(){
@@ -103,15 +102,15 @@ public class BoatController : Sigleton<BoatController>
     #endregion
     
     public void OperateShoot(){
-        PlayerManager.Instance.player.CurCoolTime-=Time.deltaTime;
         //Debug
-        Debug.Log(PlayerManager.Instance.player.CurCoolTime);
-        if(PlayerManager.Instance.player.CurCoolTime>0)return;
-        Debug.Log("TimeReady");
-        if(!PlayerManager.Instance.player.IsShoot)return;
-        boat.Shoot();
-        //RayToTarget();
-        PlayerManager.Instance.player.CurCoolTime = PlayerManager.Instance.player.CoolTime;
+        //Debug.Log(PlayerManager.Instance.player.CurCoolTime);
+        PlayerManager.Instance.player.CurCoolTime-=Time.deltaTime;
+        if(PlayerManager.Instance.player.CurCoolTime<=0){
+            if(PlayerManager.Instance.player.IsShoot){
+                boat.Shoot();
+                PlayerManager.Instance.player.CurCoolTime = PlayerManager.Instance.player.CoolTime;
+            }
+        }
     }
 
     //Debug
@@ -120,9 +119,7 @@ public class BoatController : Sigleton<BoatController>
     /// </summary>
     private void OnDrawGizmos()
     {
-        //武器检测
-        Gizmos.color = Color.blue;
-       // Gizmos.DrawRay(weapon.originPoint.transform.position,weapon.originPoint.transform.forward*100);
+        
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LaserPool : Sigleton<LaserPool>
 {
+    public Transform origin;
     public GameObject Laser;
     public Queue<GameObject> pool = new Queue<GameObject>();
     public int maxCnt;
@@ -35,14 +36,16 @@ public class LaserPool : Sigleton<LaserPool>
         }else{
             tmp = Instantiate(Laser,this.transform);
         }
+        tmp.transform.position = origin.transform.position;
         return tmp;
     }
 
     public void Push(GameObject tmp){
         if(pool.Count<=maxCnt){
             if(!pool.Contains(tmp)){
-                pool.Enqueue(tmp);
                 tmp.SetActive(false);
+                pool.Enqueue(tmp);
+                tmp.transform.position = origin.transform.position;
             }
         }else{
             Destroy(tmp);

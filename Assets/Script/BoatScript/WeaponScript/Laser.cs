@@ -32,11 +32,29 @@ public class Laser : MonoBehaviour
     private void FixedUpdate()
     {
         speed+=speed*multiSpeed;
-        speed = Mathf.Clamp(speed,0,1000);
+        speed = Mathf.Clamp(speed,0,10);
         transform.LookAt(shootTarget);
         rb.AddForce(transform.forward*speed);
+        //CheckCollision(shootTarget);
     }
+    void CheckCollision(Vector3 prevPos)
+    {
+        RaycastHit hit;
+        Vector3 direction = prevPos-transform.position;
+        Ray ray = new Ray(transform.position, direction);
+        //float dist = Vector3.Distance(transform.position, prevPos);
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            transform.position = hit.point;
+            Quaternion rot = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+            Vector3 pos = hit.point;
+            Instantiate(impact, pos, rot);
+            coll.enabled = false;
+            rb.velocity = Vector3.zero;
+            LaserPool.Instance.Push(gameObject);
+        }
+    }
     /// <summary>
     /// OnCollisionEnter is called when this collider/rigidbody has begun
     /// touching another rigidbody/collider.
@@ -44,19 +62,33 @@ public class Laser : MonoBehaviour
     /// <param name="other">The Collision data associated with this collision.</param>
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("FX"))return;
-        ContactPoint contact = other.contacts[0];
-        Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
-        Vector3 pos = contact.point;
-        Instantiate(impact,pos,rot);
-        LaserPool.Instance.Push(this.gameObject);
-        if(!other.gameObject.CompareTag("Enemy"))return;
-        
-        int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
-            other.gameObject.GetComponent<Enemy>().state
-            );
-        Debug.Log(health);
-        if(health<=0)Destroy(coll.gameObject);
+        if(!other.gameObject.CompareTag("FX")){
+            ContactPoint contact = other.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
+            Vector3 pos = contact.point;
+            Instantiate(impact,pos,rot);
+            if(other.gameObject.CompareTag("Enemy")){
+                int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
+                    other.gameObject.GetComponent<Enemy>().state
+                    );
+                Debug.Log(health);
+                if(health<=0)Destroy(other.gameObject);
+            }
+            coll.enabled = false;
+            rb.velocity = Vector3.zero;
+            LaserPool.Instance.Push(gameObject);
+        }
     }
+
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(shootTarget,transform.position-shootTarget);
+    }
+
+
 
 }

@@ -54,6 +54,7 @@ public class CharacterStats:MonoBehaviour
     }
     public float CurCoolTime{
         set{
+            stats.curCoolTime = value;
             stats.curCoolTime = Mathf.Max(0,stats.curCoolTime);
         }
         get{
@@ -71,10 +72,7 @@ public class CharacterStats:MonoBehaviour
 
     public bool IsShoot{
         set{
-            if(stats.curCoolTime>0)stats.isShoot = false;
-            else{
-                stats.isShoot = value;
-            }
+            stats.isShoot = value;
         }
         get{
             return stats.isShoot;
