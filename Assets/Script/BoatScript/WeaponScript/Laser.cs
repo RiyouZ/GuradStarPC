@@ -72,7 +72,6 @@ public class Laser : MonoBehaviour
                 int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
                     other.gameObject.GetComponent<Enemy>().state
                     );
-                Debug.Log(health);
                 if(health<=0)Destroy(other.gameObject);
             }
             coll.enabled = false;

@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52663ff81b132a4b91b3bad713809b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oilState: 0
   rb: {fileID: 0}
   boatState: {fileID: 0}
   boatRot: {fileID: 0}
