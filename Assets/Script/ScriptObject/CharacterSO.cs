@@ -9,7 +9,8 @@ public class CharacterSO : ScriptableObject
     public int curHealth;
     public int maxHealth;
     [Header("武器")]
-    public float hotTime;
+    public float curHotTime;
+    public float maxHotTime;
     public float curCoolTime;
     public float coolTime;
     //攻击力

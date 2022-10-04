@@ -43,9 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146d24d6a9b7a384c968dd74e70d5d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotState: 4
   boat: {fileID: 0}
-  boatState: {fileID: 0}
-  boatRot: {fileID: 0}
-  boatTs: {fileID: 0}
-  boatRb: {fileID: 0}
-  rotX: 0
+  weapon: {fileID: 0}

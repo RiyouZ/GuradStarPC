@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHealth: 0
   maxHealth: 0
-  hotTime: 0
+  curHotTime: 0.03708747
+  maxHotTime: 5
   curCoolTime: 0
   coolTime: 0.2
   atkVal: 1
-  isShoot: 1
+  isShoot: 0
   isGrab: 0
   isDead: 0

@@ -12,6 +12,12 @@ public class BoatController : Sigleton<BoatController>
     public Weapon weapon;
     private Ray weaponRay;
     private RaycastHit hitInfo;
+    
+    private Coroutine coolHotTimeCoroutine;
+
+    private bool isHotTime;
+
+
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -28,6 +34,15 @@ public class BoatController : Sigleton<BoatController>
     private void Update()
     {
         OperateBoatRotation();
+        //完全过热状态
+        if(PlayerManager.Instance.player.CurHotTime<=0)isHotTime = false;
+        if(PlayerManager.Instance.player.CurHotTime>=PlayerManager.Instance.player.MaxHotTime){
+            isHotTime = true;
+            coolHotTimeCoroutine = StartCoroutine("CoolHotTime");
+        }
+        if(PlayerManager.Instance.player.CurHotTime == 0&&isHotTime){
+            StopCoroutine(coolHotTimeCoroutine);
+        }
         OperateShoot();
     }
 
@@ -101,17 +116,38 @@ public class BoatController : Sigleton<BoatController>
     }
     #endregion
     
+    #region:攻击逻辑
     public void OperateShoot(){
-        //Debug
-        //Debug.Log(PlayerManager.Instance.player.CurCoolTime);
         PlayerManager.Instance.player.CurCoolTime-=Time.deltaTime;
         if(PlayerManager.Instance.player.CurCoolTime<=0){
-            if(PlayerManager.Instance.player.IsShoot){
+            if(PlayerManager.Instance.player.IsShoot&&PlayerManager.Instance.player.CurHotTime<PlayerManager.Instance.player.MaxHotTime&&!isHotTime){
                 boat.Shoot();
+                //武器加热
+                PlayerManager.Instance.player.CurHotTime+=(Time.deltaTime*10);
+                //射击间隔
                 PlayerManager.Instance.player.CurCoolTime = PlayerManager.Instance.player.CoolTime;
             }
         }
+        //武器冷却
+        if(!PlayerManager.Instance.player.IsShoot&&PlayerManager.Instance.player.CurHotTime>0)
+            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*0.1f);
+
+
     }
+
+    IEnumerator CoolHotTime(){
+        while(PlayerManager.Instance.player.CurHotTime>0){
+            PlayerManager.Instance.player.CurHotTime-=Time.deltaTime;
+            yield return null;
+        }
+    } 
+
+
+
+    #endregion
+
+
+
 
     //Debug
     /// <summary>

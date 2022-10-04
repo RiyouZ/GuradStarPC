@@ -17,9 +17,9 @@ MonoBehaviour:
   rotSpeed: 20
   curSpeed: 0
   maxSpeed: 400
-  accSpeed: 0.2
-  curOil: 10
-  maxOil: 10
+  accSpeed: 0.5
+  curOil: 500
+  maxOil: 500
   isLeft: 0
   isRight: 0
   isUp: 0
