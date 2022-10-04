@@ -24,6 +24,7 @@ public class Laser : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
+        
     }
 
     /// <summary>
