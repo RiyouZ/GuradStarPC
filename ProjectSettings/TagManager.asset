@@ -23,6 +23,9 @@ TagManager:
   - RightArea
   - LeftArea
   - Enemy
+  - Target
+  - FX
+  - PlayerBoat
   layers:
   - Default
   - TransparentFX
@@ -35,7 +38,7 @@ TagManager:
   - IgnoreTeleportPointer
   - OperatingLayer
   - WeaponLayer
-  - 
+  - SuppliesLayer
   - 
   - 
   - 

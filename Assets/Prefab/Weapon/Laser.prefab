@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7265702027418075115
+--- !u!1 &4156317542239366857
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7265702027418075029}
-  - component: {fileID: 7265702027418075028}
-  m_Layer: 0
-  m_Name: BoatController
+  - component: {fileID: 4156317542239366858}
+  - component: {fileID: 4156317542239366859}
+  m_Layer: 6
+  m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7265702027418075029
+--- !u!4 &4156317542239366858
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265702027418075115}
+  m_GameObject: {fileID: 4156317542239366857}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.494409, y: 3.064373, z: -11.063264}
+  m_LocalPosition: {x: -3.9767733, y: 5.009297, z: -3.6878505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7265702027418075028
+--- !u!114 &4156317542239366859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265702027418075115}
+  m_GameObject: {fileID: 4156317542239366857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146d24d6a9b7a384c968dd74e70d5d12, type: 3}
+  m_Script: {fileID: 11500000, guid: f2331ce1b19499f43af606cce9cade04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotState: 4
-  boat: {fileID: 0}
-  weapon: {fileID: 0}
+  origin: {fileID: 0}
+  Laser: {fileID: 1523153560657062, guid: 19c7f662c0bf1a447be313604bf5e7a3, type: 3}
+  maxCnt: 100
+  defaultCnt: 10

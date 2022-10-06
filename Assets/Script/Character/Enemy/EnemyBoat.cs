@@ -10,5 +10,9 @@ public class EnemyBoat : Enemy
         base.Awake();
     }
 
+    protected override void Start(){
+        base.Start();
+    }
+
 
 }

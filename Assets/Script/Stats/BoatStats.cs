@@ -67,7 +67,7 @@ public class BoatStats:MonoBehaviour
             stats.curOil = Mathf.Clamp(value,0,stats.maxOil);
         }
         get{
-            return stats.maxSpeed;
+            return stats.curOil;
         }
     }
     public float MaxOil{
@@ -142,14 +142,16 @@ public class BoatStats:MonoBehaviour
 
 
 
+    #endregion
 
-
-
+    #region :计算方法
+    //耗油
+    public void ConsumeOil(float spend){
+        CurOil-=spend;
+    }
 
 
     #endregion
-
-
 
 }
 

@@ -43,15 +43,25 @@ public class CharacterStats:MonoBehaviour
         }
 
     }
-    public float HotTime{
+    public float CurHotTime{
         set{
-            stats.hotTime = value;
+            stats.curHotTime = Mathf.Clamp(value,0,stats.maxHotTime);
         }
         get{
-            return stats.hotTime;
+            return stats.curHotTime;
         }
 
     }
+
+    public float MaxHotTime{
+        set{
+            stats.maxHotTime = value;
+        }
+        get{
+            return stats.maxHotTime;
+        }
+    }
+
     public float CurCoolTime{
         set{
             stats.curCoolTime = value;

@@ -1189,7 +1189,6 @@ MonoBehaviour:
   defaultValue: 0
   sources:
   - {fileID: 8234062423085319086}
-  - {fileID: 0}
   Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -2894,7 +2893,8 @@ MonoBehaviour:
       m_Calls: []
   initialValue: 0
   defaultValue: 0
-  sources: []
+  sources:
+  - {fileID: 0}
   Activated:
     m_PersistentCalls:
       m_Calls: []

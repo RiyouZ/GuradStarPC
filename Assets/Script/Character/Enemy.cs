@@ -11,8 +11,28 @@ public class Enemy : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
+
+    }
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    protected virtual void Start()
+    {
        Init(); 
     }
+    
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if(state.CurHealth<=0){
+            //EnemyPool.Instance.push(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
 
     protected void Init(){
         state = GetComponent<CharacterStats>();
