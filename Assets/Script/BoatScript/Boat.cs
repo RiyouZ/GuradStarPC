@@ -60,7 +60,7 @@ public class Boat : MonoBehaviour
         boatState.IsForward = false;
         boatState.IsBrake = false;
     }
-
+    //旋转
     public void RotDown(){
         boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,0));
     }
@@ -73,6 +73,7 @@ public class Boat : MonoBehaviour
     public void RotRight(){
         boatRot.Rotate(new Vector3(0,0,-boatState.RotSpeed*Time.deltaTime));
     }
+    //前进
     public void TsForward(float speed){
         if(boatState.CurOil<=0)return;
         rb.AddRelativeForce(Vector3.forward*speed*Time.fixedDeltaTime);
@@ -80,6 +81,7 @@ public class Boat : MonoBehaviour
     public void TsBrake(){
         rb.velocity = Vector3.zero;
     }
+    //攻击
     public void Shoot(){
         weapon.Shoot();
     }
@@ -96,15 +98,12 @@ public class Boat : MonoBehaviour
         switch(oilState){
             case OilState.ZERO:
                 boatState.ConsumeOil(0);
-                Debug.Log("消耗 0");
                 break;
             case OilState.ONE:
                 boatState.ConsumeOil(0.0002f);
-                Debug.Log("消耗 1");
                 break;
             case OilState.TWO:
                 boatState.ConsumeOil(0.0030f);
-                Debug.Log("消耗 2");
                 break;
         }
     }

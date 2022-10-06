@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OilSupplies : MonoBehaviour
+public class HealthSupplies : MonoBehaviour
 {
-    public SuppliesStats oilSuppliesState;
+    public SuppliesStats HealthSuppliesState;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -19,8 +19,8 @@ public class OilSupplies : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        oilSuppliesState.CurLifeTime+=Time.deltaTime;
-        if(oilSuppliesState.CurLifeTime>=oilSuppliesState.MaxLifeTime){
+        HealthSuppliesState.CurLifeTime+=Time.deltaTime;
+        if(HealthSuppliesState.CurLifeTime>=HealthSuppliesState.MaxLifeTime){
             //SuppliesPool.Instance.push(gameObject);
             Destroy(gameObject);
         }
@@ -33,19 +33,14 @@ public class OilSupplies : MonoBehaviour
     private void OnTriggerEnter(Collider coll)
     {
         if(coll.gameObject.CompareTag("PlayerBoat")){
-            oilSuppliesState.Recover(coll.gameObject.GetComponent<BoatStats>());
+            HealthSuppliesState.Recover(GameObject.FindObjectOfType<Player>().state);
             Destroy(gameObject);
         }
         
     }
 
     public void Init(){
-        oilSuppliesState = GetComponent<SuppliesStats>();
+        HealthSuppliesState = GetComponent<SuppliesStats>();
     }
-
-
-
-
-
 
 }

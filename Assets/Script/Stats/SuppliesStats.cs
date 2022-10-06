@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OilSuppliesStats : MonoBehaviour
+public class SuppliesStats : MonoBehaviour
 {
     public SuppliesSO stats;
     public SuppliesSO tmpStats;
@@ -29,6 +29,7 @@ public class OilSuppliesStats : MonoBehaviour
 
     public float CurLifeTime{
         set{
+            stats.curLifeTime = value;
             stats.curLifeTime = Mathf.Clamp(value,0,stats.maxLifeTime);
         }
         get{
@@ -51,6 +52,9 @@ public class OilSuppliesStats : MonoBehaviour
         boat.CurOil+=RecoverValue;
     }
 
-
+    //恢复血量
+    public void Recover(CharacterStats character){
+        character.CurHealth+=(int)RecoverValue;
+    }
 
 }

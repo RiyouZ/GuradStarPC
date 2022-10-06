@@ -15,15 +15,15 @@ MonoBehaviour:
   brakeSpeed: 1
   MultiBrakeSpeed: 10
   rotSpeed: 20
-  curSpeed: 0
+  curSpeed: 272
   maxSpeed: 400
   accSpeed: 0.5
-  curOil: 500
+  curOil: 499.40442
   maxOil: 500
   isLeft: 0
   isRight: 0
   isUp: 0
   isDown: 0
-  isForward: 0
+  isForward: 1
   isBrake: 0
   isUnpower: 0

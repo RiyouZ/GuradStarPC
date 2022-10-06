@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec7d9c04f15dcd4db70fd710e83f3a1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  curHealth: 0
-  maxHealth: 0
-  curHotTime: 0.03708747
+  curHealth: 60
+  maxHealth: 100
+  curHotTime: 0
   maxHotTime: 5
   curCoolTime: 0
   coolTime: 0.2
   atkVal: 1
   isShoot: 0
-  isGrab: 0
+  isGrab: 1
   isDead: 0
