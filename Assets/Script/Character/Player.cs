@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     public void Init(){
         state.CurHealth = state.MaxHealth;
+        state.CurHotTime = 0;
         state.IsGrab = false;
         state.IsShoot = false;
     }

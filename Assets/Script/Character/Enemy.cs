@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    private void Update()
+    protected virtual void Update()
     {
         if(state.CurHealth<=0){
             //EnemyPool.Instance.push(gameObject);

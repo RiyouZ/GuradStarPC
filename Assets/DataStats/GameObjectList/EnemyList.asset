@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cec7d9c04f15dcd4db70fd710e83f3a1, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 747889a83c7eb954a93cee052dc01425, type: 3}
+  m_Name: EnemyList
   m_EditorClassIdentifier: 
-  curHealth: 100
-  maxHealth: 100
-  curHotTime: 0.72978044
-  maxHotTime: 5
-  curCoolTime: 0
-  coolTime: 0.2
-  atkVal: 1
-  isShoot: 0
-  isGrab: 0
-  isDead: 0
+  ObjectName:
+  - EnemyBoat
+  Object:
+  - {fileID: 5835925832896153893, guid: 1fbc7efb20f72804da7db61e193529ca, type: 3}

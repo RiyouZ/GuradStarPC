@@ -24,60 +24,77 @@ public class GameObjectPool : Sigleton<GameObjectPool>
     {
         base.Awake();
         InitPool();
+        //PoolDebug();
     }
 
-    protected GameObject GetObject(string name){
+    protected virtual GameObject GetObject(string name){
+        if(poolName.ContainsKey(name)){
+            Debug.Log("游戏对象未注册");
+            return null;
+        }
         return poolName[name];
     }
-
-    protected string GetName(GameObject obj){
+    protected virtual string GetName(GameObject obj){
         return poolObject[obj];
     }
 
-    public GameObject pop(string name){
-        GameObject tmp;
-        if(pool[name].Count>0){
-            tmp = pool[name].Dequeue();
-            tmp.SetActive(true);
+    public virtual GameObject Pop(string name){
+        GameObject tmp = null;
+        if(pool.ContainsKey(name)){
+            if(pool[name].Count>0){
+                tmp = pool[name].Dequeue();
+                tmp.SetActive(true);
+            }else{
+                tmp = Instantiate(GetObject(name),this.transform);
+                pool[name].Enqueue(tmp);
+            }
+            return tmp;
         }else{
-            tmp = Instantiate(GetObject(name),this.transform);
+            Debug.Log("未在池内找到对象");
+            return null;
         }
-        return tmp;
     }
 
-    public void push(GameObject item){
-        if(pool[GetName(item)].Count<=maxCnt){
-            if(!pool[GetName(item)].Contains(item)){
-                item.SetActive(true);
-                pool[GetName(item)].Enqueue(item);
-            }    
+    public virtual void Push(GameObject item){
+        if(!poolObject.ContainsKey(item))return;
+        if(pool[GetName(item)].Count<=maxCnt&&pool[GetName(item)].Contains(item)){
+            item.SetActive(false);
+            pool[GetName(item)].Enqueue(item);
         }else{
             Destroy(item);
         }
     }
 
-    protected void InitPool(){
+    protected virtual void InitPool(){
         InitList();
         GameObject tmp;
-        foreach(var item in poolName){
+        foreach(var item in gameObjectList){
             for(int i = 1;i<=maxCnt;i++){
-                tmp = Instantiate(item.Value,this.transform);
-                pool[item.Key].Enqueue(tmp);
+                tmp = Instantiate(item,this.transform);
+                pool[GetName(item)].Enqueue(tmp);
                 tmp.SetActive(false);
             }
         }
 
     }
 
-    protected void InitList(){
+    protected virtual void InitList(){
         for(int i = 0;i<gameObjectName.Count;i++){
             AddNameWithObject(gameObjectName[i],gameObjectList[i]);
             pool.Add(gameObjectName[i],new Queue<GameObject>());
         }
     }
 
-    protected void AddNameWithObject(string name,GameObject obj){
+    protected virtual void AddNameWithObject(string name,GameObject obj){
         poolName.Add(name,obj);
         poolObject.Add(obj,name);
+    }
+
+    public void PoolDebug(){
+        foreach(var item in gameObjectName){
+            Debug.Log(item+"+"+pool[item].Dequeue());
+        }
+
+
     }
 }
