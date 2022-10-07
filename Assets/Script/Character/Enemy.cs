@@ -19,7 +19,11 @@ public class Enemy : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-       Init(); 
+       Init();
+       InitStats(); 
+    }
+    protected virtual void OnEnable(){
+        //InitStats();
     }
     
     /// <summary>
@@ -36,9 +40,10 @@ public class Enemy : MonoBehaviour
 
     protected void Init(){
         state = GetComponent<CharacterStats>();
+    }
+    protected void InitStats(){
         state.CurHealth = state.MaxHealth;
     }
-
 
 
 

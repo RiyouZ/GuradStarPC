@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoverValue: 0.5
   curLifeTime: 0
-  maxLifeTime: 30
+  maxLifeTime: 20

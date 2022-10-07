@@ -56,7 +56,7 @@ public class BoatController : Sigleton<BoatController>
     //初始化
     public void InitBoat(){
         boat = GameObject.Find("BoatHull").GetComponent<Boat>();
-        weapon = GameObject.Find("Weapon").GetComponent<Weapon>();
+        weapon = GameObject.Find("WeaponL").GetComponent<Weapon>();
     }
     #region:基本移动逻辑
     public void OperateBoatRotation(){

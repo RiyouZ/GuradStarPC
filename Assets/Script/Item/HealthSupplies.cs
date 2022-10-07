@@ -21,8 +21,8 @@ public class HealthSupplies : MonoBehaviour
     {
         HealthSuppliesState.CurLifeTime+=Time.deltaTime;
         if(HealthSuppliesState.CurLifeTime>=HealthSuppliesState.MaxLifeTime){
-            //SuppliesPool.Instance.push(gameObject);
-            Destroy(gameObject);
+            GameObjectPool.Instance.Push(gameObject);
+            //Destroy(gameObject);
         }
     }
 

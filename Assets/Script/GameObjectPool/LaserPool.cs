@@ -36,7 +36,6 @@ public class LaserPool : Sigleton<LaserPool>
         }else{
             tmp = Instantiate(Laser,this.transform);
         }
-        tmp.transform.position = origin.transform.position;
         return tmp;
     }
 

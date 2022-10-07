@@ -12,6 +12,7 @@ public class Boat : MonoBehaviour
     public BoatStats boatState;
     public Transform boatRot;
     public Weapon weapon;
+    public Weapon waeponR;
 
     private float curTimer;
     private float spendTime;
@@ -46,7 +47,8 @@ public class Boat : MonoBehaviour
     }
 
     public void Init(){
-        weapon = GameObject.Find("Weapon").GetComponent<Weapon>();
+        weapon = GameObject.Find("WeaponL").GetComponent<Weapon>();
+        waeponR = GameObject.Find("WeaponR").GetComponent<Weapon>();
         boatRot = GetComponent<Transform>();
         boatState = GetComponent<BoatStats>();
         rb = GetComponent<Rigidbody>();
@@ -84,6 +86,7 @@ public class Boat : MonoBehaviour
     //攻击
     public void Shoot(){
         weapon.Shoot();
+        waeponR.Shoot();
     }
     //修改耗油状态
     public void ChangeConsumeOilState(float firstOil,float secondOil,float thirdOil){

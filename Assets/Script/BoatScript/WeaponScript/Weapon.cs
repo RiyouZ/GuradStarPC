@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
 
     public void Shoot(){
         GameObject laser = LaserPool.Instance.Pop();
+        laser.transform.position = this.transform.position;
         laser.GetComponent<Laser>().shootTarget = ray.target;
     }    
 

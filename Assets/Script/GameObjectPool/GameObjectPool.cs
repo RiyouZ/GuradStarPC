@@ -56,7 +56,13 @@ public class GameObjectPool : Sigleton<GameObjectPool>
     }
 
     public virtual void Push(GameObject item){
-        if(!poolObject.ContainsKey(item))return;
+        if(!poolObject.ContainsKey(item)){
+            item.SetActive(false);
+            AddNameWithObject(item.name,item);
+            pool.Add(item.name,new Queue<GameObject>());
+            pool[GetName(item)].Enqueue(item);
+            return;
+        }
         if(pool[GetName(item)].Count<=maxCnt&&pool[GetName(item)].Contains(item)){
             item.SetActive(false);
             pool[GetName(item)].Enqueue(item);

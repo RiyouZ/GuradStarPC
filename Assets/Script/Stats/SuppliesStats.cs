@@ -29,7 +29,6 @@ public class SuppliesStats : MonoBehaviour
 
     public float CurLifeTime{
         set{
-            stats.curLifeTime = value;
             stats.curLifeTime = Mathf.Clamp(value,0,stats.maxLifeTime);
         }
         get{

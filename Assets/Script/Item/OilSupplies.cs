@@ -15,14 +15,22 @@ public class OilSupplies : MonoBehaviour
     }
 
     /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    private void OnEnable()
+    {
+        //InitStats();
+    }
+
+    /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     private void Update()
     {
         oilSuppliesState.CurLifeTime+=Time.deltaTime;
         if(oilSuppliesState.CurLifeTime>=oilSuppliesState.MaxLifeTime){
-            //SuppliesPool.Instance.push(gameObject);
-            Destroy(gameObject);
+            GameObjectPool.Instance.Push(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -41,10 +49,8 @@ public class OilSupplies : MonoBehaviour
 
     public void Init(){
         oilSuppliesState = GetComponent<SuppliesStats>();
+        //oilSuppliesState.CurLifeTime = 0;
     }
-
-
-
 
 
 

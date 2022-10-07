@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7345645907561138287}
   - component: {fileID: 7345645907561138286}
-  - component: {fileID: 421944867}
   - component: {fileID: 421944866}
+  - component: {fileID: 421944867}
   m_Layer: 11
   m_Name: OilSupplies
   m_TagString: Untagged
@@ -48,19 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
   tmpStats: {fileID: 11400000, guid: 57eb28f1412bbe04b9c62585a865600f, type: 2}
---- !u!65 &421944867
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7345645907561138257}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &421944866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,6 +61,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilSuppliesState: {fileID: 0}
+--- !u!65 &421944867
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345645907561138257}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7345645908328919575
 GameObject:
   m_ObjectHideFlags: 0

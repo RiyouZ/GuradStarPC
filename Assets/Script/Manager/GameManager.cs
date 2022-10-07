@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : Sigleton<GameManager>
 {
+    public CharacterStats player;
     public BoatStats boat;
     public int enemyCnt;
     
@@ -16,6 +17,11 @@ public class GameManager : Sigleton<GameManager>
     {
         base.Awake();
     }
+
+    public void Init(){
+        enemyCnt = BuildEnemyManager.Instance.maxCnt;
+    }
+
 
 
 }
