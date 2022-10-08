@@ -7,6 +7,8 @@ public class BuildEnemyManager : Sigleton<BuildEnemyManager>
     public GameObjectListSO enemyList;
     public Transform playerPos;
 
+    public float repeatTime;
+
     public int maxCnt;
     public int curCnt;
 
@@ -14,14 +16,40 @@ public class BuildEnemyManager : Sigleton<BuildEnemyManager>
         base.Awake();
     }
 
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    private void Start()
+    {
+        InvokeRepeating("CreateEnemy",0.5f,repeatTime); 
+    }
+
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        
+    }
     public void CreateEnemy(){
         if(PlayerManager.Instance.player.isDead){
             CancelInvoke("CreateEnemy");
             return;
         }
+        Vector3 pos = new Vector3(Random.Range(-100,100),Random.Range(-100,100),Random.Range(-100,100));
+        if(pos==playerPos.position){
+            return;
+        }
         GameObject enemy = GameObjectPool.Instance.Pop(enemyList.ObjectName[Random.Range(0,enemyList.ObjectName.Count)]);
+        enemy.transform.position = pos;
         curCnt++;
-        enemy.transform.position = new Vector3(playerPos.position.x+Random.Range(100,500),playerPos.position.y,playerPos.position.z);
+        if(curCnt>=maxCnt){
+            CancelInvoke("CreateEnemy");
+            return;
+        }
+
     
     }
 

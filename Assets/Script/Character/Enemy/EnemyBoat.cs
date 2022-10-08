@@ -24,9 +24,12 @@ public class EnemyBoat : Enemy
     protected override void Update()
     {
         if(state.CurHealth<=0){
+            BuildEnemyManager.Instance.curCnt--;
+            GameManager.Instance.enemyCnt--;
             GameObject supplies = GameObjectPool.Instance.Pop(suppliesList[Random.Range(0,suppliesList.Count)].ToString());
             supplies.transform.position = this.transform.position;
-            Destroy(gameObject);
+            GameObjectPool.Instance.Push(gameObject);
+            //Destroy(gameObject);
         }
     }
 
