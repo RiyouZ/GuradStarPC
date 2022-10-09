@@ -42,7 +42,7 @@ public class Rod : MonoBehaviour
     void Update()
     {
         rb.isKinematic = true;
-        ts.localPosition = Vector3.zero;
+        //ts.localPosition = Vector3.zero;
         //if(transform.localPosition!=origionPosition)ts.Translate(Vector3.zero);
         //复位
         if(!IsReset()&&!PlayerManager.Instance.player.IsGrab){
