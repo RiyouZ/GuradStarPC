@@ -14,6 +14,8 @@ public class Boat : MonoBehaviour
     public Weapon weapon;
     public Weapon waeponR;
 
+    public float mutilAudioForwardValue;
+
     private float curTimer;
     private float spendTime;
 
@@ -101,12 +103,25 @@ public class Boat : MonoBehaviour
         switch(oilState){
             case OilState.ZERO:
                 boatState.ConsumeOil(0);
+                if(AudioManager.Instance.IsPlay("Forward"))AudioManager.Instance.Stop("Forward");
                 break;
             case OilState.ONE:
                 boatState.ConsumeOil(0.0002f);
+                if(!AudioManager.Instance.IsPlay("Forward")){
+                    AudioManager.Instance.Play("Forward");
+                }else{
+                    AudioManager.Instance.SetPitch("Forward",boatState.CurSpeed*mutilAudioForwardValue);
+                }
+                Debug.Log(AudioManager.Instance.audioTag["Forward"].soruce.name);
                 break;
             case OilState.TWO:
                 boatState.ConsumeOil(0.0030f);
+                if(!AudioManager.Instance.IsPlay("Forward")){
+                    AudioManager.Instance.SetPitch("Forward",2);
+                    AudioManager.Instance.Play("Forward");
+                }else{
+                    AudioManager.Instance.SetPitch("Forward",boatState.CurSpeed*mutilAudioForwardValue);
+                }
                 break;
         }
     }
