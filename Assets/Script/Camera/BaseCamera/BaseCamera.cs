@@ -32,12 +32,15 @@ public class BaseCamera : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        FollowCamera(playerCamera.GetComponent<Transform>());
+        //transform.position = transform.TransformPoint(transform.localPosition);
+        //FollowCamera(playerCamera.GetComponent<Transform>());
         
     }
 
     public void FollowCamera(Transform follow){
         MyCameraTs.localEulerAngles = follow.localEulerAngles;
+
+        MyCameraTs.localPosition = Vector3.MoveTowards(MyCameraTs.localPosition,follow.localPosition,10);
     }
 
 

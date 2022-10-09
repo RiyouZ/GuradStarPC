@@ -54,6 +54,7 @@ public class Laser : MonoBehaviour
             coll.enabled = false;
             rb.velocity = Vector3.zero;
             LaserPool.Instance.Push(gameObject);
+
         }
     }
     /// <summary>
@@ -73,8 +74,8 @@ public class Laser : MonoBehaviour
                     other.gameObject.GetComponent<Enemy>().state
                     );
             }
-            coll.enabled = false;
-            rb.velocity = Vector3.zero;
+            //coll.enabled = false;
+            //rb.velocity = Vector3.zero;
             LaserPool.Instance.Push(gameObject);
         }
     }
