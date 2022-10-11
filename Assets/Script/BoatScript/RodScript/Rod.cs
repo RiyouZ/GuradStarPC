@@ -41,7 +41,7 @@ public class Rod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         //ts.localPosition = Vector3.zero;
         //if(transform.localPosition!=origionPosition)ts.Translate(Vector3.zero);
         //复位
@@ -92,6 +92,18 @@ public class Rod : MonoBehaviour
         if (coll.CompareTag("RightArea")){
             BoatController.Instance.boat.boatState.IsRight = true;
         }
+        if (coll.CompareTag("UpAndLeftArea")){
+            BoatController.Instance.boat.boatState.IsUpAndLeft = true;
+        }
+        if (coll.CompareTag("UpAndRightArea")){
+            BoatController.Instance.boat.boatState.IsUpAndRight = true;
+        }
+        if (coll.CompareTag("DownAndLeftArea")){
+            BoatController.Instance.boat.boatState.IsDownAndLeft = true;
+        }
+        if (coll.CompareTag("DownAndRightArea")){
+            BoatController.Instance.boat.boatState.IsDownAndRight = true;
+        }
     }
     /// <summary>
     /// OnTriggerExit is called when the Collider other has stopped touching the trigger.
@@ -111,6 +123,18 @@ public class Rod : MonoBehaviour
         }
         if (coll.CompareTag("RightArea")){
             BoatController.Instance.boat.boatState.IsRight = false;
+        }
+        if (coll.CompareTag("UpAndLeftArea")){
+            BoatController.Instance.boat.boatState.IsUpAndLeft = false;
+        }
+        if (coll.CompareTag("UpAndRightArea")){
+            BoatController.Instance.boat.boatState.IsUpAndRight = false;
+        }
+        if (coll.CompareTag("DownAndLeftArea")){
+            BoatController.Instance.boat.boatState.IsDownAndLeft = false;
+        }
+        if (coll.CompareTag("DownAndRightArea")){
+            BoatController.Instance.boat.boatState.IsDownAndRight = false;
         }
 
         

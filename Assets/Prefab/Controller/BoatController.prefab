@@ -46,3 +46,4 @@ MonoBehaviour:
   rotState: 4
   boat: {fileID: 0}
   weapon: {fileID: 0}
+  mulitCoolHotTime: 4

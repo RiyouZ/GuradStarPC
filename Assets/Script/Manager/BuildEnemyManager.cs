@@ -38,11 +38,11 @@ public class BuildEnemyManager : Sigleton<BuildEnemyManager>
             CancelInvoke("CreateEnemy");
             return;
         }
-        Vector3 pos = new Vector3(Random.Range(-100,100),Random.Range(-100,100),Random.Range(-100,100));
+        Vector3 pos = new Vector3(Random.Range(-500,500),Random.Range(-500,500),Random.Range(-500,500));
         if(pos==playerPos.position){
             return;
         }
-        GameObject enemy = GameObjectPool.Instance.Pop(enemyList.ObjectName[Random.Range(0,enemyList.ObjectName.Count)]);
+        GameObject enemy = GameObjectPool.Instance.Pop(enemyList.ObjectName[Random.Range(0,enemyList.ObjectName.Count-1)]);
         enemy.transform.position = pos;
         curCnt++;
         if(curCnt>=maxCnt){

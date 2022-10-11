@@ -8,6 +8,7 @@ public class GameManager : Sigleton<GameManager>
 
     public GameState gameState = GameState.DEFAULT;
     public CharacterStats player;
+    public CharacterStats enemy;
     public BoatStats boat;
     public int enemyCnt;
     

@@ -139,6 +139,41 @@ public class BoatStats:MonoBehaviour
             return stats.isBrake;
         }
     }
+    public bool IsUpAndLeft{
+        set{
+            stats.isUpAndLeft = value;
+        }
+        get{
+            return stats.isUpAndLeft;
+        }
+    }
+
+    public bool IsUpAndRight{
+        set{
+            stats.isUpAndRight = value;
+        }
+        get{
+            return stats.isUpAndRight;
+        }
+    }
+
+    public bool IsDownAndLeft{
+        set{
+            stats.isDownAndLeft = value;
+        }
+        get{
+            return stats.isDownAndLeft;
+        }
+    }
+    public bool IsDownAndRight{
+        set{
+            stats.isDownAndRight = value;
+        }
+        get{
+            return stats.isDownAndRight;
+        }
+    }
+
 
 
 
