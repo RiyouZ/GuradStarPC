@@ -8,7 +8,7 @@ public class EB_ATTACK : _State<EnemyBoat>
     private float timer;
     public override void Enter(EnemyBoat target)
     {
-        timer = Random.Range(0.5f,1);
+        timer = Random.Range(0.5f,1f);
     }
 
     public override void Execute(EnemyBoat target)

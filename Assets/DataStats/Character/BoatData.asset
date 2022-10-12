@@ -18,13 +18,13 @@ MonoBehaviour:
   curSpeed: 2500
   maxSpeed: 2500
   accSpeed: 20
-  curOil: 2.49815
+  curOil: 45.57695
   maxOil: 50
   isLeft: 0
   isRight: 0
   isUp: 0
   isDown: 0
-  isForward: 1
+  isForward: 0
   isBrake: 0
   isUnpower: 0
   isUpAndLeft: 0

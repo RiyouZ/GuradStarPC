@@ -11,21 +11,21 @@ public enum EBState{
 }
 
 
-public class EnemyBoat : Enemy
+public class EnemyBoat : MonoBehaviour
 {
 
     public Rigidbody rb;
 
     public EnemyWeapon weaponL;
     public EnemyWeapon weaponR;
-
-    public BoatStats boatState;
-
+    public CharacterStats state;
 
     //随机掉落物列表
     public List<string> suppliesList;
     //攻击目标对象列表
     public List<GameObject> shootTargetList = new List<GameObject>();
+    //攻击玩家
+    public GameObject player;
     //正在攻击的目标
     public GameObject shootTarget;
     //状态机
@@ -44,22 +44,22 @@ public class EnemyBoat : Enemy
     public float curSpeed;
     public float preSpeed = 0;
 
-
-    protected override void Awake(){
-        base.Awake();
+    private static Coroutine IErandom;
+    protected void Awake(){
+        state = GetComponent<CharacterStats>();
+        rb = GetComponent<Rigidbody>();
+        weaponL = GameObject.Find("WeaponEL").GetComponent<EnemyWeapon>();
+        weaponR = GameObject.Find("WeaponER").GetComponent<EnemyWeapon>();
         EnemyManager.Instance.RegisterEnemy(this,state);
     }
 
-    protected override void OnEnable(){
+    protected  void OnEnable(){
         //base.OnEnable();
+        state.CurHealth = state.MaxHealth;
+        FriendManager.Instance.AddTargetList(this.gameObject);
     }
 
-    protected override void Start(){
-        base.Start();
-        rb = GetComponent<Rigidbody>();
-        boatState = GetComponent<BoatStats>();
-        weaponL = GameObject.Find("WeaponEL").GetComponent<EnemyWeapon>();
-        weaponR = GameObject.Find("WeaponER").GetComponent<EnemyWeapon>();
+    protected void Start(){
         //创建字典索引
         stateDic = new Dictionary<EBState, _State<EnemyBoat>>();
         stateDic.Add(EBState.Move,new EB_MOVE());
@@ -70,7 +70,7 @@ public class EnemyBoat : Enemy
         machine = new StateMachine<EnemyBoat>(this);
         machine.SetCurState(stateDic[EBState.Chase]);
     }
-    protected override void Update()
+    protected void Update()
     {
         machine.OnUpdate();
         if(state.CurHealth<=0){
@@ -123,7 +123,7 @@ public class EnemyBoat : Enemy
 
     //检测范围
     public bool IsTargetInArea(){
-        Collider[] colliders = Physics.OverlapSphere(transform.position,attckRadius,1<<6);
+        Collider[] colliders = Physics.OverlapSphere(transform.position,attckRadius,(1<<6)|(1<<12));
         if(colliders.Length<=0)return false;
         return true;
     }
@@ -136,10 +136,21 @@ public class EnemyBoat : Enemy
 
     //切换攻击目标
     public void ChangeAttackTarget(GameObject target){
-        if(this.shootTarget==target)return;
-        this.shootTarget = target;
+        if(this.shootTarget==target){
+            IErandom = StartCoroutine(RandomTarget(target));
+        }
     }
-    
+    public void EndChangeAttackTarget(GameObject target){
+        if(this.shootTarget!=target){
+            StopCoroutine(IErandom);
+        }
+    }
+     IEnumerator RandomTarget(GameObject target){
+        while(this.shootTarget==target){
+            this.shootTarget = shootTargetList[Random.Range(0,shootTargetList.Count-1)];
+            yield return null;
+        }
+    }
     //检测碰撞
     public bool IsCollEnter(Transform target){
         RaycastHit hit;
@@ -188,10 +199,13 @@ public class EnemyBoat : Enemy
             curSpeed = Mathf.Clamp(curSpeed,0,maxAccSpeed);
         }else if(Vector3.Distance(target.position,transform.position)>=attckRadius){
             curSpeed +=Time.deltaTime*accSpeed*0.05f;
-            curSpeed = Mathf.Clamp(curSpeed,2,maxAccSpeed*0.7f);
-        }else{
-            curSpeed-=Time.deltaTime*accSpeed;
-            curSpeed = Mathf.Clamp(curSpeed,2,maxAccSpeed);
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed*0.7f);
+        }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)>=0){
+            curSpeed -= Time.deltaTime*accSpeed;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
+        }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)<0){
+            curSpeed += Time.deltaTime*accSpeed;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
         }
         transform.position += transform.forward*curSpeed*Time.deltaTime;
 

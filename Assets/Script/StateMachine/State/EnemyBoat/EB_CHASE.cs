@@ -10,8 +10,6 @@ public class EB_CHASE : _State<EnemyBoat>
     public override void Enter(EnemyBoat target)
     {
         //随机追击目标
-        Debug.Log(target.shootTargetList.Count);
-        timer = Random.Range(5f,6f);
         target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
     }
 
@@ -23,7 +21,12 @@ public class EB_CHASE : _State<EnemyBoat>
         }
         timer-=Time.deltaTime;
         if(timer<=0){
-            target.ChangeAttackTarget(target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)]);
+            if(Random.Range(0f,1f)>=0.5){
+                target.shootTarget = target.player;
+            }else{
+                target.ChangeAttackTarget(target.shootTarget);
+                target.EndChangeAttackTarget(target.shootTarget);
+            }
         }
         if(target.IsTargetInArea()){
             target.ChangeState(EBState.Attack);

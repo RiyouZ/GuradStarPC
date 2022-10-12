@@ -10,7 +10,8 @@ public class EB_DEAD : _State<EnemyBoat>
         GameManager.Instance.enemyCnt--;
         GameObject supplies = GameObjectPool.Instance.Pop(target.suppliesList[Random.Range(0,target.suppliesList.Count)].ToString());
         supplies.transform.position = target.transform.position;
-        if(EnemyManager.Instance.enemys.Count!=0)EnemyManager.Instance.DeRegisterEnemy(target,target.state);
+        //if(EnemyManager.Instance.enemys.Count!=0)EnemyManager.Instance.DeRegisterEnemy(target,target.state);
+        FriendManager.Instance.RemoveTargetList(target.transform.gameObject);
         GameObjectPool.Instance.Push(target.transform.parent.gameObject);
     }
 
