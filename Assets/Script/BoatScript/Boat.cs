@@ -14,8 +14,12 @@ public class Boat : MonoBehaviour
     public Weapon weapon;
     public Weapon waeponR;
 
+    public float mutilAudioForwardValue;
+
     private float curTimer;
     private float spendTime;
+
+    private Vector3 preSpeed = Vector3.zero;
 
 /// <summary>
 /// Awake is called when the script instance is being loaded.
@@ -32,6 +36,7 @@ public class Boat : MonoBehaviour
     private void Start()
     {
         Init();
+        EnemyManager.Instance.AddTargetList(this.transform.gameObject);
     }
 
     /// <summary>
@@ -45,6 +50,14 @@ public class Boat : MonoBehaviour
             curTimer = 0;
         }
     }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if(!other.gameObject.CompareTag("FX")){
+            rb.velocity = Vector3.zero;
+        }
+    }
+
 
     public void Init(){
         weapon = GameObject.Find("WeaponL").GetComponent<Weapon>();
@@ -75,6 +88,18 @@ public class Boat : MonoBehaviour
     public void RotRight(){
         boatRot.Rotate(new Vector3(0,0,-boatState.RotSpeed*Time.deltaTime));
     }
+    public void RotUpAndLeft(){
+        boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,boatState.RotSpeed*Time.deltaTime));
+    }
+    public void RotUpAndRight(){
+        boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,-boatState.RotSpeed*Time.deltaTime));
+    }
+    public void RotDownAndLeft(){
+        boatRot.Rotate(new Vector3(-boatState.RotSpeed*Time.deltaTime,0,boatState.RotSpeed*Time.deltaTime));
+    }
+    public void RotDownAndRight(){
+        boatRot.Rotate(new Vector3(-boatState.RotSpeed*Time.deltaTime,0,-boatState.RotSpeed*Time.deltaTime));
+    }
     //前进
     public void TsForward(float speed){
         if(boatState.CurOil<=0)return;
@@ -101,16 +126,32 @@ public class Boat : MonoBehaviour
         switch(oilState){
             case OilState.ZERO:
                 boatState.ConsumeOil(0);
+                if(AudioManager.Instance.IsPlay("Forward"))AudioManager.Instance.Stop("Forward");
                 break;
             case OilState.ONE:
                 boatState.ConsumeOil(0.0002f);
+                if(!AudioManager.Instance.IsPlay("Forward")){
+                    AudioManager.Instance.Play("Forward");
+                }else{
+                    AudioManager.Instance.SetPitch("Forward",boatState.CurSpeed*mutilAudioForwardValue);
+                }
+                Debug.Log(AudioManager.Instance.audioTag["Forward"].soruce.name);
                 break;
             case OilState.TWO:
                 boatState.ConsumeOil(0.0030f);
+                if(!AudioManager.Instance.IsPlay("Forward")){
+                    AudioManager.Instance.SetPitch("Forward",2);
+                    AudioManager.Instance.Play("Forward");
+                }else{
+                    AudioManager.Instance.SetPitch("Forward",boatState.CurSpeed*mutilAudioForwardValue);
+                }
                 break;
         }
     }
-
+    //获取坐标
+    public Transform GetTransform(){
+        return transform;
+    }
 
 
 

@@ -28,14 +28,21 @@ public class Laser : MonoBehaviour
     }
 
     /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    private void OnEnable()
+    {
+        transform.LookAt(shootTarget);
+    }
+
+    /// <summary>
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     /// </summary>
     private void FixedUpdate()
     {
         speed+=speed*multiSpeed;
-        speed = Mathf.Clamp(speed,0,10);
-        transform.LookAt(shootTarget);
-        rb.AddForce(transform.forward*speed);
+        speed = Mathf.Clamp(speed,0,1000);
+        rb.AddForce(transform.forward*speed,ForceMode.Impulse);
         //CheckCollision(shootTarget);
     }
     void CheckCollision(Vector3 prevPos)
@@ -64,20 +71,25 @@ public class Laser : MonoBehaviour
     /// <param name="other">The Collision data associated with this collision.</param>
     private void OnCollisionEnter(Collision other)
     {
-        if(!other.gameObject.CompareTag("FX")){
-            ContactPoint contact = other.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
-            Vector3 pos = contact.point;
-            Instantiate(impact,pos,rot);
+        //if(!other.gameObject.CompareTag("FX")){
+            // ContactPoint contact = other.contacts[0];
+            // Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
+            // Vector3 pos = contact.point;
+            // Instantiate(impact,pos,rot);
             if(other.gameObject.CompareTag("Enemy")){
                 int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
-                    other.gameObject.GetComponent<Enemy>().state
+                    other.gameObject.GetComponent<EnemyBoat>().state
                     );
+            }else if(other.gameObject.CompareTag("PlayerBoat")){
+                Debug.Log(EnemyManager.Instance.enemys[0]);
+                int health = EnemyManager.Instance.enemys[0].TakeDamage(EnemyManager.Instance.enemys[0],
+                    PlayerManager.Instance.player
+                );
             }
-            //coll.enabled = false;
-            //rb.velocity = Vector3.zero;
+            coll.enabled = false;
+            rb.velocity = Vector3.zero;
             LaserPool.Instance.Push(gameObject);
-        }
+        //}
     }
 
     /// <summary>

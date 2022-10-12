@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037e9a01a8fa81e43bcd8d2479dce118, type: 3}
   m_Name: OilData
   m_EditorClassIdentifier: 
-  recoverValue: 0.5
+  recoverValue: 10
   curLifeTime: 0
   maxLifeTime: 20

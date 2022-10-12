@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: 
   curHealth: 0
-  maxHealth: 5
-  hotTime: 0
-  curTime: 0
-  coolTime: 0
-  atkVal: 0
+  maxHealth: 100
+  curHotTime: 0
+  maxHotTime: 4
+  curCoolTime: 0
+  coolTime: 0.2
+  atkVal: 5
   isShoot: 0
   isGrab: 0
   isDead: 0

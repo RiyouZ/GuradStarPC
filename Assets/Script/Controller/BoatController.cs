@@ -6,10 +6,14 @@ using System;
 public class BoatController : Sigleton<BoatController>
 {
 
-    public enum RotState{UP,DOWN,RIGHT,LEFT,NULL};
+    public enum RotState{UP,DOWN,RIGHT,LEFT,NULL,UPANDLEFT,UPANDRIGHT,DOWNANDLFET,DOWNANDRIGHT};
     public RotState rotState;
     public Boat boat;
     public Weapon weapon;
+
+    public float mulitCoolHotTime;
+
+
     private Ray weaponRay;
     private RaycastHit hitInfo;
     
@@ -60,7 +64,15 @@ public class BoatController : Sigleton<BoatController>
     }
     #region:基本移动逻辑
     public void OperateBoatRotation(){
-        if(boat.boatState.IsDown){
+        if(boat.boatState.IsUpAndLeft){
+            rotState = RotState.UPANDLEFT;
+        }else if(boat.boatState.IsUpAndRight){
+            rotState = RotState.UPANDRIGHT;
+        }else if(boat.boatState.IsDownAndLeft){
+            rotState = RotState.DOWNANDLFET;
+        }else if(boat.boatState.IsDownAndRight){
+            rotState = RotState.DOWNANDRIGHT;
+        }else if(boat.boatState.IsDown){
             rotState = RotState.DOWN;
         }else if(boat.boatState.IsUp){
             rotState = RotState.UP;
@@ -69,7 +81,7 @@ public class BoatController : Sigleton<BoatController>
         }else if(boat.boatState.IsRight){
             rotState = RotState.RIGHT;
         }else{
-            rotState = RotState.NULL;
+            return;
         }
         
         switch(rotState){
@@ -84,6 +96,19 @@ public class BoatController : Sigleton<BoatController>
                 break;
             case RotState.RIGHT:
                 boat.RotRight();
+                break;
+            case RotState.UPANDLEFT:
+                Debug.Log("UpLeft");
+                boat.RotUpAndLeft();
+                break;
+            case RotState.UPANDRIGHT:
+                boat.RotUpAndRight();
+                break;
+            case RotState.DOWNANDLFET:
+                boat.RotDownAndLeft();
+                break;
+            case RotState.DOWNANDRIGHT:
+                boat.RotDownAndRight();
                 break;
             case RotState.NULL:
                 break;
@@ -130,14 +155,14 @@ public class BoatController : Sigleton<BoatController>
         }
         //武器冷却
         if(!PlayerManager.Instance.player.IsShoot&&PlayerManager.Instance.player.CurHotTime>0)
-            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*0.1f);
+            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*mulitCoolHotTime);
 
 
     }
 
     IEnumerator CoolHotTime(){
         while(PlayerManager.Instance.player.CurHotTime>0){
-            PlayerManager.Instance.player.CurHotTime-=Time.deltaTime;
+            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*mulitCoolHotTime);
             yield return null;
         }
     } 

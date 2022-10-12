@@ -133,7 +133,7 @@ public class ExplodingProjectile : MonoBehaviour
                 LaserPool.Instance.Push(gameObject);
             }
             if(collision.gameObject.CompareTag("Enemy")){
-                int curHealth = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,collision.gameObject.GetComponent<Enemy>().state);
+                int curHealth = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,collision.gameObject.GetComponent<EnemyBoat>().state);
                 if(curHealth<=0)Destroy(collision.gameObject);
             }
         }

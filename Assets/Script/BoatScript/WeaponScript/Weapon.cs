@@ -10,24 +10,32 @@ public class Weapon : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    private void Awake()
+    protected virtual void Awake()
     {
         ray = GameObject.FindWithTag("Target").GetComponent<RayAim>();
     }
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    private void Update()
+    protected virtual void Update()
     {
 
 
     }
 
-    public void Shoot(){
+    public virtual void Shoot(){
+        AudioManager.Instance.Play("Shoot");
         GameObject laser = LaserPool.Instance.Pop();
         laser.transform.position = this.transform.position;
         laser.GetComponent<Laser>().shootTarget = ray.target;
     }    
+
+    public virtual void Shoot(Transform target,Transform origin){
+        AudioManager.Instance.Play("Shoot");
+        GameObject laser = LaserPool.Instance.Pop();
+        laser.transform.position = origin.position;
+        laser.GetComponent<Laser>().shootTarget = target.position;
+    }
 
 
 }
