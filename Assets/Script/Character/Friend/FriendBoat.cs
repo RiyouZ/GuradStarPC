@@ -26,16 +26,35 @@ public class FriendBoat : MonoBehaviour
     //存储状态
     public Dictionary<FBState,_State<FriendBoat>> stateDic;
 
-    [Header("属性")]
+    [Header("AI属性")]
     //攻击检测范围
+    [Tooltip("攻击范围")]
     public float attckRadius;
+    [Tooltip("追击范围")]
     public float accRadius;
+    [Tooltip("加速度")]
     public float accSpeed;
+    [Tooltip("最大速度")]
     public float maxAccSpeed;
     public float rotSpeed;
+    [Tooltip("旋转速度")]
     public float maxRotSpeed;
     public float curSpeed;
     public float preSpeed = 0;
+    [Tooltip("攻击范围外的加速度的百分比")]
+    public float OutAttackAreaMultiSpeed = 0.05f;
+    [Tooltip("攻击范围外的最大速度的百分比")]
+    public float OutAttackAreaMaxMultiSpeed = 0.7f;
+    [Tooltip("攻击范围内的目标在前方时减速度的百分比")]
+    public float InForwardAttackAreaMultiSpeed = 0.05f;
+    [Tooltip("攻击范围内的目标在前方时最大速度的百分比")]
+    public float InForwardAttackAreaMaxMultiSpeed = 0.05f;
+    [Tooltip("攻击范围内的目标在后方时加速度的百分比")]
+    public float InBackAttackAreaMultiSpeed = 10f;
+    [Tooltip("攻击范围内的目标在后方时最大速度的百分比")]
+    public float InBackAttackAreaMaxMultiSpeed = 0.05f;
+    [Tooltip("攻击范围内最小速度的百分比")]
+    public float InAttackAreaMinMultiSpeed = 0.4f;
     [SerializeField]
     private int shootIdx;
 
@@ -73,7 +92,7 @@ public class FriendBoat : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("EdgeZone")){
-            
+
             ChangeState(FBState.GoBack);
         }
     }
@@ -141,14 +160,14 @@ public class FriendBoat : MonoBehaviour
             curSpeed+=Time.deltaTime*accSpeed;
             curSpeed = Mathf.Clamp(curSpeed,0,maxAccSpeed);
         }else if(Vector3.Distance(target.position,transform.position)>=attckRadius){
-            curSpeed +=Time.deltaTime*accSpeed*0.05f;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed*0.7f);
+            curSpeed +=Time.deltaTime*accSpeed*OutAttackAreaMultiSpeed;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*InForwardAttackAreaMaxMultiSpeed,maxAccSpeed*OutAttackAreaMaxMultiSpeed);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)>=0){
-            curSpeed -=Time.deltaTime*accSpeed*0.05f;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.4f,maxAccSpeed*0.5f);
+            curSpeed -=Time.deltaTime*accSpeed*InForwardAttackAreaMultiSpeed;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*InAttackAreaMinMultiSpeed,maxAccSpeed*InForwardAttackAreaMaxMultiSpeed);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)<0){
-            curSpeed += Time.deltaTime*accSpeed*10;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed);
+            curSpeed += Time.deltaTime*accSpeed*InBackAttackAreaMultiSpeed;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*InAttackAreaMinMultiSpeed,maxAccSpeed*InBackAttackAreaMaxMultiSpeed);
         }
         transform.position += transform.forward*curSpeed*Time.deltaTime;
 
