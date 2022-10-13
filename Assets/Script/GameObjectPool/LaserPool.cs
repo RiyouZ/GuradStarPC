@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class LaserPool : Sigleton<LaserPool>
 {
-    public GameObject Laser;
-    public Queue<GameObject> pool = new Queue<GameObject>();
+    public GameObject friendLaser;
+    public GameObject enemyLaser;
+    public Queue<GameObject> friendPool = new Queue<GameObject>();
+    public Queue<GameObject> enemyPool = new Queue<GameObject>();
     public int maxCnt;
     public int defaultCnt;
 
@@ -20,29 +22,54 @@ public class LaserPool : Sigleton<LaserPool>
 
     public void Init(){
         GameObject tmp;
+        GameObject tmp1;
         for(int i = 1;i<=defaultCnt;i++){
-            tmp = Instantiate(Laser,this.transform);
-            pool.Enqueue(tmp);
+            tmp = Instantiate(friendLaser,this.transform);
+            tmp1 = Instantiate(enemyLaser,this.transform);
+            friendPool.Enqueue(tmp);
+            friendPool.Enqueue(tmp1);
             tmp.SetActive(false);
+            tmp1.SetActive(false);
         }
     }
 
     public GameObject Pop(){
         GameObject tmp;
-        if(pool.Count>0){
-            tmp = pool.Dequeue();
+        if(friendPool.Count>0){
+            tmp = friendPool.Dequeue();
             tmp.SetActive(true);
         }else{
-            tmp = Instantiate(Laser,this.transform);
+            tmp = Instantiate(friendLaser,this.transform);
         }
         return tmp;
     }
 
     public void Push(GameObject tmp){
-        if(pool.Count<=maxCnt){
-            if(!pool.Contains(tmp)){
+        if(friendPool.Count<=maxCnt){
+            if(!friendPool.Contains(tmp)){
                 tmp.SetActive(false);
-                pool.Enqueue(tmp);
+                friendPool.Enqueue(tmp);
+            }
+        }else{
+            Destroy(tmp);
+        }
+    }
+    public GameObject PopE(){
+        GameObject tmp;
+        if(enemyPool.Count>0){
+            tmp = enemyPool.Dequeue();
+            tmp.SetActive(true);
+        }else{
+            tmp = Instantiate(enemyLaser,this.transform);
+        }
+        return tmp;
+    }
+
+    public void PushE(GameObject tmp){
+        if(enemyPool.Count<=maxCnt){
+            if(!enemyPool.Contains(tmp)){
+                tmp.SetActive(false);
+                enemyPool.Enqueue(tmp);
             }
         }else{
             Destroy(tmp);

@@ -48,7 +48,7 @@ MonoBehaviour:
   - Oil
   - Health
   gameObjectList:
-  - {fileID: 2502816349431636166, guid: 1fbc7efb20f72804da7db61e193529ca, type: 3}
+  - {fileID: 5222129397969577575, guid: 8a5af4e4a4f1d494bbd2e7953ced136c, type: 3}
   - {fileID: 7345645907561138257, guid: 66e9e58ee999f9e41b6e2d520cd18313, type: 3}
   - {fileID: 890962236676536360, guid: e4a305cbfec07424eb17d8b3bcb14c4d, type: 3}
   defaultCnt: 5

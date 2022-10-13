@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameObjectPool : Sigleton<GameObjectPool>
 {
     public List<string> gameObjectName;
-    public List<GameObject> gameObjectList;
+    public List<GameObject> gameObjectList = new List<GameObject>();
 
 
     public Dictionary<string,Queue<GameObject>> pool = new Dictionary<string, Queue<GameObject>>();
@@ -28,7 +28,7 @@ public class GameObjectPool : Sigleton<GameObjectPool>
     }
 
     protected virtual GameObject GetObject(string name){
-        if(poolName.ContainsKey(name)){
+        if(!poolName.ContainsKey(name)){
             Debug.Log("游戏对象未注册");
             return null;
         }
@@ -38,46 +38,59 @@ public class GameObjectPool : Sigleton<GameObjectPool>
         return poolObject[obj];
     }
 
-    public virtual GameObject Pop(string name){
+    public virtual GameObject Pop(GameObject item){
         GameObject tmp = null;
-        if(pool.ContainsKey(name)){
-            if(pool[name].Count>0){
-                tmp = pool[name].Dequeue();
-                tmp.SetActive(true);
-            }else{
-                tmp = Instantiate(GetObject(name),this.transform);
-                pool[name].Enqueue(tmp);
+        if(pool.ContainsKey(item.name)){
+            if(pool[item.name].Count>0){
+                tmp = pool[item.name].Dequeue();
             }
-            return tmp;
         }else{
+            tmp = Instantiate(item,this.transform);
+            tmp.name = item.name;
+            pool.Add(tmp.name,new Queue<GameObject>());
+            pool[tmp.name].Enqueue(item);
             Debug.Log("未在池内找到对象");
-            return null;
         }
+        tmp.SetActive(true);
+        return tmp;
     }
 
     public virtual void Push(GameObject item){
-        if(!poolObject.ContainsKey(item)){
-            item.SetActive(false);
-            AddNameWithObject(item.name,item);
-            pool.Add(item.name,new Queue<GameObject>());
-            pool[GetName(item)].Enqueue(item);
+        if(pool.ContainsKey(item.name)){
+            if(pool[item.name].Count<=maxCnt){
+                Debug.LogWarning("池内有此对象");
+                pool[item.name].Enqueue(item);
+                item.SetActive(false);
+                return;
+            }
+        }else if(!pool.ContainsKey(item.name)){
+            Debug.LogWarning("池内没有此对象");
+            GameObject tmp = new GameObject();
+            tmp = Instantiate(tmp,this.transform);
+            tmp.name = item.name;
+            pool.Add(tmp.name,new Queue<GameObject>());    
+            pool[tmp.name].Enqueue(tmp);
+            tmp.SetActive(false);
+            Debug.LogWarning("已加入池内");
             return;
-        }
-        if(pool[GetName(item)].Count<=maxCnt&&pool[GetName(item)].Contains(item)){
-            item.SetActive(false);
-            pool[GetName(item)].Enqueue(item);
         }else{
             Destroy(item);
         }
     }
 
     protected virtual void InitPool(){
-        InitList();
-        GameObject tmp;
+        // InitList();
         foreach(var item in gameObjectList){
+            GameObject tmp = new GameObject();
             for(int i = 1;i<=maxCnt;i++){
                 tmp = Instantiate(item,this.transform);
-                pool[GetName(item)].Enqueue(tmp);
+                tmp.name = item.name;
+                if(!pool.ContainsKey(item.name)){
+                    pool.Add(tmp.name,new Queue<GameObject>());
+                    pool[tmp.name].Enqueue(tmp);
+                }else{
+                    pool[tmp.name].Enqueue(tmp);
+                }
                 tmp.SetActive(false);
             }
         }
@@ -85,10 +98,9 @@ public class GameObjectPool : Sigleton<GameObjectPool>
     }
 
     protected virtual void InitList(){
-        for(int i = 0;i<gameObjectName.Count;i++){
-            AddNameWithObject(gameObjectName[i],gameObjectList[i]);
-            pool.Add(gameObjectName[i],new Queue<GameObject>());
-        }
+        // for(int i = 0;i<gameObjectName.Count;i++){
+        //     AddNameWithObject(gameObjectName[i],gameObjectList[i]);
+        // }
     }
 
     protected virtual void AddNameWithObject(string name,GameObject obj){

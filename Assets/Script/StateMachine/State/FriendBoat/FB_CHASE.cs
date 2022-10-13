@@ -10,7 +10,7 @@ public class FB_CHASE : _State<FriendBoat>
     {
         Debug.Log(target.shootTargetList.Count);
         timer = Random.Range(5f,8f);
-        target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
+        if(target.shootTargetList.Count!=0)target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
     }
 
     public override void Execute(FriendBoat target)
@@ -24,8 +24,12 @@ public class FB_CHASE : _State<FriendBoat>
             target.ChangeAttackTarget(target.shootTarget);
             target.EndChangeAttackTarget(target.shootTarget);
         }
-        if(target.IsTargetInArea()){
-            target.ChangeState(FBState.Attack);
+        if(target.IsTargetInArea()
+            &&Vector3.Dot(target.transform.forward,target.shootTarget.transform.position-target.transform.position)>=0){
+                target.ChangeState(FBState.Attack);
+        }else{
+            target.ChangeAttackTarget(target.shootTarget);
+            target.EndChangeAttackTarget(target.shootTarget);
         }
         target.ChaseTarget(target.shootTarget.transform);
     }

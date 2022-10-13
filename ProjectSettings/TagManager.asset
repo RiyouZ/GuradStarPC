@@ -30,6 +30,7 @@ TagManager:
   - UpAndRightArea
   - DownAndLeftArea
   - DownAndRightArea
+  - EdgeZone
   layers:
   - Default
   - TransparentFX

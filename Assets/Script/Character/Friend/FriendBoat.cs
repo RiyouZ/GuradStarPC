@@ -5,8 +5,8 @@ using UnityEngine;
 
 public enum FBState{
     Chase,
-    Attack
-
+    Attack,
+    GoBack
 }
 
 public class FriendBoat : MonoBehaviour
@@ -44,14 +44,14 @@ public class FriendBoat : MonoBehaviour
 
     protected void Awake(){
         state = GetComponent<CharacterStats>();
-        rb = GetComponent<Rigidbody>();
-        weaponL = GameObject.Find("WeaponFL").GetComponent<FriendWeapon>();
-        weaponR = GameObject.Find("WeaponFR").GetComponent<FriendWeapon>();
-        FriendManager.Instance.RegisterFriend(this.gameObject,state);
+        //rb = GetComponent<Rigidbody>();
+        weaponL = transform.Find("WeaponFL").GetComponent<FriendWeapon>();
+        weaponR = transform.Find("WeaponFR").GetComponent<FriendWeapon>();
     }
 
     protected  void OnEnable(){
         //base.OnEnable();
+        //FriendManager.Instance.RegisterFriend(this.gameObject,state);
     }
 
     protected void Start(){
@@ -69,6 +69,15 @@ public class FriendBoat : MonoBehaviour
     {
         machine.OnUpdate();
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("EdgeZone")){
+            
+            ChangeState(FBState.GoBack);
+        }
+    }
+
     public void ChangeState(FBState fbState){
         if(!stateDic.ContainsKey(fbState))return;
         machine.ChangeCurState(stateDic[fbState]);
@@ -78,6 +87,10 @@ public class FriendBoat : MonoBehaviour
         weaponR.Shoot(target.transform,weaponR.transform);
     }
     public void ChangeAttackTarget(GameObject target){
+        if(shootTargetList.Count==0){
+            Debug.LogWarning("场上没有敌人");
+            return;
+        }
         if(this.shootTarget==target){
             IErandom = StartCoroutine(RandomTarget(target));
         }
@@ -93,6 +106,13 @@ public class FriendBoat : MonoBehaviour
         if(colliders.Length<=0)return false;
         return true;
     }
+    //在玩家周围
+    public bool IsPlayerInArea(){
+         Collider[] colliders = Physics.OverlapSphere(transform.position,attckRadius,1<<6);
+        if(colliders.Length<=0)return false;
+        return true;
+    }
+
 
     //随机下一个下标
     IEnumerator RandomTarget(GameObject target){
@@ -124,11 +144,11 @@ public class FriendBoat : MonoBehaviour
             curSpeed +=Time.deltaTime*accSpeed*0.05f;
             curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed*0.7f);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)>=0){
-            curSpeed -= Time.deltaTime*accSpeed;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
+            curSpeed -=Time.deltaTime*accSpeed*0.05f;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.4f,maxAccSpeed*0.5f);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)<0){
-            curSpeed += Time.deltaTime*accSpeed;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
+            curSpeed += Time.deltaTime*accSpeed*10;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed);
         }
         transform.position += transform.forward*curSpeed*Time.deltaTime;
 

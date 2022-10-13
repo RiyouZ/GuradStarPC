@@ -16,7 +16,10 @@ public class EnemyWeapon : Weapon
     {
         shootTimer-=Time.deltaTime;
         if(shootTimer<=0){
-            base.Shoot(target,origin);
+            AudioManager.Instance.Play("Shoot");
+            GameObject laser = LaserPool.Instance.PopE();
+            laser.transform.position = origin.position;
+            laser.GetComponent<LaserE>().shootTarget = target.position;
             shootTimer = defaultShootTimer;
         }
     }

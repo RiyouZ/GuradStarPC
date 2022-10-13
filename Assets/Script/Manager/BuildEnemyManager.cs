@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class BuildEnemyManager : Sigleton<BuildEnemyManager>
 {
-    public GameObjectListSO enemyList;
+    public List<GameObject> enemyList= new List<GameObject>();
     public Transform playerPos;
 
-    public float repeatTime;
+    public int repeatTime;
 
     public int maxCnt;
     public int curCnt;
+
+    public float createArea;
+
+    public Coroutine IEcreateEnemy;
 
     protected override void Awake(){
         base.Awake();
@@ -22,35 +26,30 @@ public class BuildEnemyManager : Sigleton<BuildEnemyManager>
     /// </summary>
     private void Start()
     {
-        InvokeRepeating("CreateEnemy",0.5f,repeatTime); 
+        if(curCnt<maxCnt){
+            IEcreateEnemy = StartCoroutine(CreateEnemy());
+        }else{
+            StopCoroutine(IEcreateEnemy);
+        }
+
     }
-
-
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     private void Update()
     {
-        
-    }
-    public void CreateEnemy(){
-        if(PlayerManager.Instance.player.isDead){
-            CancelInvoke("CreateEnemy");
-            return;
-        }
-        Vector3 pos = new Vector3(Random.Range(-500,500),Random.Range(-500,500),Random.Range(-500,500));
-        if(pos==playerPos.position){
-            return;
-        }
-        GameObject enemy = GameObjectPool.Instance.Pop(enemyList.ObjectName[Random.Range(0,enemyList.ObjectName.Count-1)]);
-        enemy.transform.position = pos;
-        curCnt++;
-        if(curCnt>=maxCnt){
-            CancelInvoke("CreateEnemy");
-            return;
-        }
 
-    
+
+    }
+
+    IEnumerator CreateEnemy(){
+        while(curCnt<maxCnt){
+            Vector3 pos = new Vector3(Random.Range(-createArea,createArea),Random.Range(-createArea,createArea),Random.Range(-createArea,createArea));
+            GameObject enemy = GameObjectPool.Instance.Pop(enemyList[Random.Range(0,enemyList.Count-1)]);
+            enemy.transform.position = pos;
+            curCnt++;
+            yield return new WaitForSeconds(repeatTime);
+        }
     }
 
 

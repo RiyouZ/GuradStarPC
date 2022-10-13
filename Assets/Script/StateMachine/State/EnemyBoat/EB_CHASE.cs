@@ -9,8 +9,10 @@ public class EB_CHASE : _State<EnemyBoat>
     private Quaternion targetRot;
     public override void Enter(EnemyBoat target)
     {
+        timer = Random.Range(10f,15f);
         //随机追击目标
-        target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
+        if(target.shootTargetList.Count!=0)target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
+
     }
 
     public override void Execute(EnemyBoat target)
@@ -28,8 +30,12 @@ public class EB_CHASE : _State<EnemyBoat>
                 target.EndChangeAttackTarget(target.shootTarget);
             }
         }
-        if(target.IsTargetInArea()){
-            target.ChangeState(EBState.Attack);
+        if(target.IsTargetInArea()
+            &&Vector3.Dot(target.transform.forward,target.shootTarget.transform.position-target.transform.position)>=0){
+                target.ChangeState(EBState.Attack);
+        }else{
+            target.ChangeAttackTarget(target.shootTarget);
+            target.EndChangeAttackTarget(target.shootTarget);
         }
         target.ChaseTarget(target.shootTarget.transform);
 

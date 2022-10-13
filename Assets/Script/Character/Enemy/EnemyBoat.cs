@@ -21,7 +21,7 @@ public class EnemyBoat : MonoBehaviour
     public CharacterStats state;
 
     //随机掉落物列表
-    public List<string> suppliesList;
+    public List<GameObject> suppliesList = new List<GameObject>();
     //攻击目标对象列表
     public List<GameObject> shootTargetList = new List<GameObject>();
     //攻击玩家
@@ -47,9 +47,9 @@ public class EnemyBoat : MonoBehaviour
     private static Coroutine IErandom;
     protected void Awake(){
         state = GetComponent<CharacterStats>();
-        rb = GetComponent<Rigidbody>();
-        weaponL = GameObject.Find("WeaponEL").GetComponent<EnemyWeapon>();
-        weaponR = GameObject.Find("WeaponER").GetComponent<EnemyWeapon>();
+        //rb = GetComponent<Rigidbody>();
+        weaponL = transform.Find("WeaponEL").GetComponent<EnemyWeapon>();
+        weaponR = transform.Find("WeaponER").GetComponent<EnemyWeapon>();
         EnemyManager.Instance.RegisterEnemy(this,state);
     }
 
@@ -57,6 +57,8 @@ public class EnemyBoat : MonoBehaviour
         //base.OnEnable();
         state.CurHealth = state.MaxHealth;
         FriendManager.Instance.AddTargetList(this.gameObject);
+        this.player = GameObject.FindObjectOfType<Boat>().gameObject;
+        if(machine!=null)machine.SetCurState(stateDic[EBState.Chase]);
     }
 
     protected void Start(){
@@ -88,8 +90,20 @@ public class EnemyBoat : MonoBehaviour
     {
         if(!other.gameObject.CompareTag("FX")){
             
+
         }
 
+    }
+
+    /// <summary>
+    /// OnTriggerExit is called when the Collider other has stopped touching the trigger.
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("EdgeZone")){
+            shootTarget = player;
+        }
     }
 
     /// <summary>
@@ -201,11 +215,11 @@ public class EnemyBoat : MonoBehaviour
             curSpeed +=Time.deltaTime*accSpeed*0.05f;
             curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed*0.7f);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)>=0){
-            curSpeed -= Time.deltaTime*accSpeed;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
+            curSpeed -=Time.deltaTime*accSpeed*0.05f;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.4f,maxAccSpeed*0.5f);
         }else if(Vector3.Dot(Vector3.forward,target.position-transform.position)<0){
-            curSpeed += Time.deltaTime*accSpeed;
-            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.2f,maxAccSpeed*0.5f);
+            curSpeed += Time.deltaTime*accSpeed*10;
+            curSpeed = Mathf.Clamp(curSpeed,maxAccSpeed*0.5f,maxAccSpeed);
         }
         transform.position += transform.forward*curSpeed*Time.deltaTime;
 

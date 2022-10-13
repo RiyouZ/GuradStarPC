@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class LaserE : MonoBehaviour
 {
     public GameObject impact;
     public Rigidbody rb;
@@ -60,7 +60,7 @@ public class Laser : MonoBehaviour
             Instantiate(impact, pos, rot);
             coll.enabled = false;
             rb.velocity = Vector3.zero;
-            LaserPool.Instance.Push(gameObject);
+            LaserPool.Instance.PushE(gameObject);
 
         }
     }
@@ -76,14 +76,15 @@ public class Laser : MonoBehaviour
             // Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
             // Vector3 pos = contact.point;
             // Instantiate(impact,pos,rot);
-            if(other.gameObject.CompareTag("Enemy")){
-                int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
-                    other.gameObject.GetComponent<EnemyBoat>().state
-                    );
+            if(other.gameObject.CompareTag("PlayerBoat")){
+                Debug.Log(EnemyManager.Instance.enemys[0]);
+                int health = EnemyManager.Instance.enemys[0].TakeDamage(EnemyManager.Instance.enemys[0],
+                    PlayerManager.Instance.player
+                );
             }
             coll.enabled = false;
             rb.velocity = Vector3.zero;
-            LaserPool.Instance.Push(gameObject);
+            LaserPool.Instance.PushE(gameObject);
         //}
     }
 
@@ -92,7 +93,7 @@ public class Laser : MonoBehaviour
     /// </summary>
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         Gizmos.DrawRay(shootTarget,transform.position-shootTarget);
     }
 
