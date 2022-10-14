@@ -37,7 +37,7 @@ public class GameManager : Sigleton<GameManager>
     public void ListenGameState(){
         if(player.CurHealth<=0){
             gameState = GameState.DEFEAT;
-        }else if(enemyCnt==0){
+        }else if(enemyCnt<=0){
             gameState = GameState.WIN;
         }else{
             return;

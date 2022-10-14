@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    [Header("音效")]
+    public AudioSource hitClip;
     public GameObject impact;
     public Rigidbody rb;
 
@@ -24,6 +26,7 @@ public class Laser : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
+        hitClip = GetComponent<AudioSource>();
         
     }
 
@@ -71,12 +74,13 @@ public class Laser : MonoBehaviour
     /// <param name="other">The Collision data associated with this collision.</param>
     private void OnCollisionEnter(Collision other)
     {
-        //if(!other.gameObject.CompareTag("FX")){
+        if(!other.gameObject.CompareTag("FX")){
             // ContactPoint contact = other.contacts[0];
             // Quaternion rot = Quaternion.FromToRotation(Vector3.forward,contact.normal);
             // Vector3 pos = contact.point;
             // Instantiate(impact,pos,rot);
             if(other.gameObject.CompareTag("Enemy")){
+                if(hitClip.isPlaying==false)hitClip.Play();
                 int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
                     other.gameObject.GetComponent<EnemyBoat>().state
                     );
@@ -84,7 +88,7 @@ public class Laser : MonoBehaviour
             coll.enabled = false;
             rb.velocity = Vector3.zero;
             LaserPool.Instance.Push(gameObject);
-        //}
+        }
     }
 
     /// <summary>

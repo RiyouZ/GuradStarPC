@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4079002426698477997}
   - component: {fileID: 4203684677213151389}
   - component: {fileID: 4202415466204803255}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EngineCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4849,7 +4849,7 @@ GameObject:
   - component: {fileID: 4078962203536488559}
   - component: {fileID: 4191626909472988655}
   - component: {fileID: 4202075819513271635}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9620,7 +9620,7 @@ GameObject:
   - component: {fileID: 4072777360740463767}
   - component: {fileID: 4203246044515765511}
   - component: {fileID: 4202314489485164925}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14309,7 +14309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4078833957712935451}
   - component: {fileID: 4113109575157085601}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14403,7 +14403,7 @@ GameObject:
   - component: {fileID: 4072644911118240497}
   - component: {fileID: 4202988752309149349}
   - component: {fileID: 4201979530229291207}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

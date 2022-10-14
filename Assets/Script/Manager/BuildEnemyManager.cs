@@ -52,6 +52,17 @@ public class BuildEnemyManager : Sigleton<BuildEnemyManager>
         }
     }
 
+    //Debug
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(this.transform.position,new Vector3(2*createArea,2*createArea,2*createArea));
+
+
+    }
 
 
 

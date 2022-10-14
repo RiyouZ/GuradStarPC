@@ -6,6 +6,7 @@ public class EB_DEAD : _State<EnemyBoat>
 {
     public override void Enter(EnemyBoat target)
     {
+        target.DestroyClipPlay();
         BuildEnemyManager.Instance.curCnt--;
         GameManager.Instance.enemyCnt--;
         GameObject supplies = GameObjectPool.Instance.Pop(target.suppliesList[Random.Range(0,target.suppliesList.Count)]);

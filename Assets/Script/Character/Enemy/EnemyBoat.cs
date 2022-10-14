@@ -12,10 +12,10 @@ public enum EBState{
 
 
 public class EnemyBoat : MonoBehaviour
-{
+{   
 
+    [Header("组件")]
     public Rigidbody rb;
-
     public EnemyWeapon weaponL;
     public EnemyWeapon weaponR;
     public CharacterStats state;
@@ -32,6 +32,9 @@ public class EnemyBoat : MonoBehaviour
     public StateMachine<EnemyBoat> machine;
     //存储状态
     public Dictionary<EBState,_State<EnemyBoat>> stateDic;
+    [Header("音效")]
+    [Tooltip("击毁音效")]
+    public AudioSource destoryClip;
 
     [Header("AI属性")]
     //攻击检测范围
@@ -67,7 +70,6 @@ public class EnemyBoat : MonoBehaviour
 
     private static Coroutine IErandom;
     protected void Awake(){
-        state = GetComponent<CharacterStats>();
         //rb = GetComponent<Rigidbody>();
         weaponL = transform.Find("WeaponEL").GetComponent<EnemyWeapon>();
         weaponR = transform.Find("WeaponER").GetComponent<EnemyWeapon>();
@@ -76,6 +78,7 @@ public class EnemyBoat : MonoBehaviour
 
     protected  void OnEnable(){
         //base.OnEnable();
+        state = GetComponent<CharacterStats>();
         state.CurHealth = state.MaxHealth;
         FriendManager.Instance.AddTargetList(this.gameObject);
         this.player = GameObject.FindObjectOfType<Boat>().gameObject;
@@ -83,6 +86,8 @@ public class EnemyBoat : MonoBehaviour
     }
 
     protected void Start(){
+        destoryClip = GetComponent<AudioSource>();
+
         //创建字典索引
         stateDic = new Dictionary<EBState, _State<EnemyBoat>>();
         stateDic.Add(EBState.Move,new EB_MOVE());
@@ -251,6 +256,12 @@ public class EnemyBoat : MonoBehaviour
         Debug.Log("Add"+target.name);
         shootTargetList.Add(target);
     }
+
+    //播放击毁音效
+    public void DestroyClipPlay(){
+        destoryClip.Play();
+    }
+
 
     //Debug
     /// <summary>

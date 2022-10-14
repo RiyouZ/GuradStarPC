@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1881981034103656902}
   - component: {fileID: 1986225175103544956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 1873566577836925228}
   - component: {fileID: 1788151257582253432}
   - component: {fileID: 1789230902224974618}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4821,7 +4821,7 @@ GameObject:
   - component: {fileID: 1882303434717354608}
   - component: {fileID: 1788688716446305088}
   - component: {fileID: 1789394159316786026}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EngineR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9659,7 +9659,7 @@ GameObject:
   - component: {fileID: 1873963046900260682}
   - component: {fileID: 1787964347074438874}
   - component: {fileID: 1789425329899530912}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14349,7 +14349,7 @@ GameObject:
   - component: {fileID: 1882412952905814962}
   - component: {fileID: 1778755205707986482}
   - component: {fileID: 1789067774695980686}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
