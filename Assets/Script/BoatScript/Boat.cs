@@ -58,6 +58,13 @@ public class Boat : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("EdgeZone")){
+            PlayerManager.Instance.player.CurHealth-=(int)Time.deltaTime;
+        }
+    }
+
 
     public void Init(){
         weapon = GameObject.Find("WeaponL").GetComponent<Weapon>();

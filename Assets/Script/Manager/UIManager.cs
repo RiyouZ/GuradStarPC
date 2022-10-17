@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class UIManager : Sigleton<UIManager>
 {
@@ -46,14 +49,12 @@ public class UIManager : Sigleton<UIManager>
         // }
         uiDic[tag].SetActive(false);
     }
-    // //暂停菜单打开
-    // public void StopMenuOpenAction(){
-    //     GameManager.Instance.GamePasue();
-    // }
-    // //暂停菜单关闭
-    // public void StopMenuCloseAction(){
-    //     GameManager.Instance.GameStart();
-    // }
+
+    //设置指定ui文字内容
+    public void SetText(string tag,string textname,string text){
+        if(!uiDic.ContainsKey(tag))return;
+        uiDic[tag].transform.Find(textname).GetComponent<TextMeshPro>().text = text;
+    }
     
 
 

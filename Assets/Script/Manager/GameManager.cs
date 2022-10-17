@@ -69,10 +69,14 @@ public class GameManager : Sigleton<GameManager>
 
     public void WinGame(){
         GamePause();
+        UIManager.Instance.SetText("WinCanvas","TimeText",TimeManager.Instance.curTime.ToString());
+        UIManager.Instance.SetText("WinCanvas","ScoreText",player.socore.ToString());
         UIManager.Instance.OpenUI("WinCanvas");
     }
     public void DefeatGame(){
         GamePause();
+        UIManager.Instance.SetText("WinCanvas","TimeText",TimeManager.Instance.curTime.ToString());
+        UIManager.Instance.SetText("WinCanvas","ScoreText",player.socore.ToString());
         UIManager.Instance.OpenUI("DefeatCanvas");
     }
     public void PauseMenuGame(){
