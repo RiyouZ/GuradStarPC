@@ -42,6 +42,7 @@ public class OilSupplies : MonoBehaviour
     {
         if(coll.gameObject.CompareTag("PlayerBoat")){
             oilSuppliesState.Recover(coll.gameObject.GetComponent<BoatStats>());
+            oilSuppliesState.AddSocore(GameObject.FindObjectOfType<Player>().state);
             Destroy(gameObject);
         }
         
@@ -50,6 +51,13 @@ public class OilSupplies : MonoBehaviour
     public void Init(){
         oilSuppliesState = GetComponent<SuppliesStats>();
         //oilSuppliesState.CurLifeTime = 0;
+    }
+    //朝向相机
+    public void LookCamera(Camera camera){
+        Quaternion rot = Quaternion.identity;
+        rot.SetLookRotation(camera.transform.forward,camera.transform.up);
+        transform.rotation = rot;
+
     }
 
 

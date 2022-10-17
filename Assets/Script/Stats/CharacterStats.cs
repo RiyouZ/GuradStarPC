@@ -6,6 +6,8 @@ public class CharacterStats:MonoBehaviour
 
     public CharacterSO tmpStats;
 
+    public int socore;
+
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.

@@ -36,6 +36,10 @@ public class EnemyBoat : MonoBehaviour
     [Tooltip("击毁音效")]
     public AudioSource destoryClip;
 
+    [Header("特效")]
+    [Tooltip("击毁特效")]
+    public GameObject destoryEffect;
+
     [Header("AI属性")]
     //攻击检测范围
     [Tooltip("攻击范围")]

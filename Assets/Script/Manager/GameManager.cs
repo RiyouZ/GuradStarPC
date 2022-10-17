@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameManager : Sigleton<GameManager>
 {
-    public enum GameState{DEFAULT,WIN,DEFEAT};
+    public enum GameState{
+        DEFAULT,
+        WIN,
+        DEFEAT,
+        PAUSE
+    };
 
     public GameState gameState = GameState.DEFAULT;
     public CharacterStats player;
@@ -20,6 +25,7 @@ public class GameManager : Sigleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        //GamePause();
     }
 
     /// <summary>
@@ -27,7 +33,7 @@ public class GameManager : Sigleton<GameManager>
     /// </summary>
     private void Update()
     {
-
+        
     }
 
     public void Init(){
@@ -52,14 +58,31 @@ public class GameManager : Sigleton<GameManager>
         }
 
     }
+    public void GameStart(){
+        Time.timeScale = 1;
+    }
+
+    public void GamePause(){
+        Time.timeScale = 0;
+    }
+
 
     public void WinGame(){
-
+        GamePause();
+        UIManager.Instance.OpenUI("WinCanvas");
     }
     public void DefeatGame(){
-
+        GamePause();
+        UIManager.Instance.OpenUI("DefeatCanvas");
     }
-
+    public void PauseMenuGame(){
+        GamePause();
+        UIManager.Instance.OpenUI("MenuCanvas");
+    }
+    public void ContinueGame(){
+        GamePause();
+        UIManager.Instance.CloseUI("MenuCanvas");
+    }
 
 
 }

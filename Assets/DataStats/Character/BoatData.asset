@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brakeSpeed: 10
   MultiBrakeSpeed: 10
-  rotSpeed: 30
-  curSpeed: 2500
+  rotSpeed: 60
+  curSpeed: 0
   maxSpeed: 2500
   accSpeed: 20
-  curOil: 45.57695
+  curOil: 50
   maxOil: 50
   isLeft: 0
   isRight: 0

@@ -8,6 +8,8 @@ public class TimeManager : Sigleton<TimeManager>
     public DateTime startTime;
     public DateTime curTime;
 
+    public float gameTime;
+
 
 
     protected override void Awake(){
@@ -17,15 +19,19 @@ public class TimeManager : Sigleton<TimeManager>
     // Start is called before the first frame update
     void Start()
     {
-        startTime = DateTime.Now;
     }
 
     // Update is called once per frame
     void Update()
     {
-        curTime = DateTime.Now;
-
+        gameTime+=Time.deltaTime;
     }
+
+    
+    public float GetGameTime(){
+        return gameTime;
+    }
+
 
     public bool IsAfterOneSeconds(){
         if(curTime>=startTime.AddSeconds(1)){
