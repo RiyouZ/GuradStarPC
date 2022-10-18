@@ -33,7 +33,7 @@ public class GameManager : Sigleton<GameManager>
     /// </summary>
     private void Update()
     {
-        
+        ListenGameState();
     }
 
     public void Init(){
@@ -50,9 +50,11 @@ public class GameManager : Sigleton<GameManager>
         }
         switch(gameState){
             case GameState.WIN:
+                Debug.LogWarning("Win!");
                 WinGame();
                 break;
             case GameState.DEFEAT:
+                Debug.LogWarning("Deafeat!");
                 DefeatGame();
                 break;
         }
@@ -69,15 +71,15 @@ public class GameManager : Sigleton<GameManager>
 
     public void WinGame(){
         GamePause();
-        UIManager.Instance.SetText("WinCanvas","TimeText",TimeManager.Instance.curTime.ToString());
-        UIManager.Instance.SetText("WinCanvas","ScoreText",player.socore.ToString());
         UIManager.Instance.OpenUI("WinCanvas");
+        UIManager.Instance.SetText("WinCanvas","Panel/EndPanel/Time",TimeManager.Instance.gameTime.ToString("0.00"));
+        UIManager.Instance.SetText("WinCanvas","Panel/EndPanel/Score",player.socore.ToString());
     }
     public void DefeatGame(){
         GamePause();
-        UIManager.Instance.SetText("WinCanvas","TimeText",TimeManager.Instance.curTime.ToString());
-        UIManager.Instance.SetText("WinCanvas","ScoreText",player.socore.ToString());
         UIManager.Instance.OpenUI("DefeatCanvas");
+        UIManager.Instance.SetText("DefeatCanvas","Panel/EndPanel/Time",TimeManager.Instance.gameTime.ToString("0.00"));
+        UIManager.Instance.SetText("DefeatCanvas","Panel/EndPanel/Score",player.socore.ToString());
     }
     public void PauseMenuGame(){
         GamePause();

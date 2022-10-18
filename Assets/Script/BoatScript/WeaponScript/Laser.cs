@@ -81,7 +81,7 @@ public class Laser : MonoBehaviour
             // Instantiate(impact,pos,rot);
             if(other.gameObject.CompareTag("Enemy")){
                 if(hitClip.isPlaying==false)hitClip.Play();
-                int health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
+                float health = PlayerManager.Instance.player.TakeDamage(PlayerManager.Instance.player,
                     other.gameObject.GetComponent<EnemyBoat>().state
                     );
             }

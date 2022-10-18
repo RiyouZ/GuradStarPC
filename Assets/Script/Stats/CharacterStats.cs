@@ -19,7 +19,7 @@ public class CharacterStats:MonoBehaviour
 
     #region:赋值数值 
     
-    public int CurHealth{
+    public float CurHealth{
         set{
             stats.curHealth = Mathf.Clamp(value,0,stats.maxHealth);
         }
@@ -27,7 +27,7 @@ public class CharacterStats:MonoBehaviour
             return stats.curHealth;
         }
     }
-    public int MaxHealth{
+    public float MaxHealth{
         set{
             stats.maxHealth = value;
         }
@@ -120,7 +120,7 @@ public class CharacterStats:MonoBehaviour
     #region:数值计算方法
     //攻击计算
 
-    public int TakeDamage(CharacterStats attack,CharacterStats target){
+    public float TakeDamage(CharacterStats attack,CharacterStats target){
         target.CurHealth-=attack.AtkVal;
         return target.CurHealth;
     }
