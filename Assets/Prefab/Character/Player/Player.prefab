@@ -60,6 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 39e2a5ad0afd1544a8fc4d805330b88e, type: 2}
   tmpStats: {fileID: 0}
+  socore: 0
 --- !u!1001 &2582721839384811163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1071,6 +1072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212986831953282638, guid: 1ba7c34703c41f0429000972a37938cd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5212986832066745987, guid: 1ba7c34703c41f0429000972a37938cd,
         type: 3}
@@ -2324,6 +2330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7928242926612286597, guid: 1ba7c34703c41f0429000972a37938cd, type: 3}
+    - {fileID: 9107713770207081107, guid: 1ba7c34703c41f0429000972a37938cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1ba7c34703c41f0429000972a37938cd, type: 3}
 --- !u!4 &7750576430522901737 stripped
 Transform:

@@ -43,4 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae5d138bb97dea41a748a52f1d6be23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: 0
+  player: {fileID: 0}
+  enemy: {fileID: 0}
   boat: {fileID: 0}
+  enemyCnt: 20

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : Sigleton<UIManager>
@@ -32,6 +33,7 @@ public class UIManager : Sigleton<UIManager>
         foreach(var it in uiList){
             for(int i = 0;i<it.transform.childCount;i++){
                 uiDic.Add(it.transform.GetChild(i).name,it.transform.GetChild(i).gameObject);
+                if(it.transform.GetChild(i).name=="MainCanvas"||it.transform.GetChild(i).name=="MemberCanvas")continue;
                 uiDic[it.transform.GetChild(i).name].SetActive(false);
             }
         }
@@ -68,7 +70,22 @@ public class UIManager : Sigleton<UIManager>
         if(!uiDic.ContainsKey(tag))return;
         uiDic[tag].transform.Find(textname).GetChild(0).GetComponent<TMP_Text>().text = text;
     }
-    
+
+    //不经过UIManager管理打开
+    public void OpenUINotManager(GameObject ui){
+        ui.SetActive(true);
+    }
+
+    //不经过UIManager管理关闭
+    public void CloseUINotManager(GameObject ui){
+        ui.SetActive(false);
+    }
+
+
+    //读取场景
+    public void UILoadSence(string sence){
+        SceneManager.LoadScene(sence);
+    }
 
 
 }
