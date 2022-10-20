@@ -86,8 +86,16 @@ public class GameManager : Sigleton<GameManager>
         UIManager.Instance.OpenUI("MenuCanvas");
     }
     public void ContinueGame(){
-        GamePause();
         UIManager.Instance.CloseUI("MenuCanvas");
+        GameStart();
+    }
+
+    public void RestartGame(){
+        //重置场景
+    }
+    //退出到主菜单
+    public void QuitToMenuGame(){
+        
     }
 
 
