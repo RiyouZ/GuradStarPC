@@ -24,7 +24,7 @@ public class RayAim : MonoBehaviour
     /// </summary>
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         Gizmos.DrawRay(camera.transform.position,(transform.position-camera.transform.position)*100);
 
     }

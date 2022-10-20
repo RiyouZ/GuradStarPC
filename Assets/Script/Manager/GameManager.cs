@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameManager : Sigleton<GameManager>
 {
-    public enum GameState{DEFAULT,WIN,DEFEAT};
+    public enum GameState{
+        DEFAULT,
+        WIN,
+        DEFEAT,
+        PAUSE
+    };
 
     public GameState gameState = GameState.DEFAULT;
     public CharacterStats player;
@@ -20,6 +25,7 @@ public class GameManager : Sigleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        //GamePause();
     }
 
     /// <summary>
@@ -27,7 +33,7 @@ public class GameManager : Sigleton<GameManager>
     /// </summary>
     private void Update()
     {
-
+        ListenGameState();
     }
 
     public void Init(){
@@ -37,29 +43,60 @@ public class GameManager : Sigleton<GameManager>
     public void ListenGameState(){
         if(player.CurHealth<=0){
             gameState = GameState.DEFEAT;
-        }else if(enemyCnt==0){
+        }else if(enemyCnt<=0){
             gameState = GameState.WIN;
         }else{
             return;
         }
         switch(gameState){
             case GameState.WIN:
+                Debug.LogWarning("Win!");
                 WinGame();
                 break;
             case GameState.DEFEAT:
+                Debug.LogWarning("Deafeat!");
                 DefeatGame();
                 break;
         }
 
     }
+    public void GameStart(){
+        Time.timeScale = 1;
+    }
+
+    public void GamePause(){
+        Time.timeScale = 0;
+    }
+
 
     public void WinGame(){
-
+        GamePause();
+        UIManager.Instance.OpenUI("WinCanvas");
+        UIManager.Instance.SetText("WinCanvas","Panel/EndPanel/Time",TimeManager.Instance.gameTime.ToString("0.00"));
+        UIManager.Instance.SetText("WinCanvas","Panel/EndPanel/Score",player.socore.ToString());
     }
     public void DefeatGame(){
-
+        GamePause();
+        UIManager.Instance.OpenUI("DefeatCanvas");
+        UIManager.Instance.SetText("DefeatCanvas","Panel/EndPanel/Time",TimeManager.Instance.gameTime.ToString("0.00"));
+        UIManager.Instance.SetText("DefeatCanvas","Panel/EndPanel/Score",player.socore.ToString());
+    }
+    public void PauseMenuGame(){
+        GamePause();
+        UIManager.Instance.OpenUI("MenuCanvas");
+    }
+    public void ContinueGame(){
+        UIManager.Instance.CloseUI("MenuCanvas");
+        GameStart();
     }
 
+    public void RestartGame(){
+        //重置场景
+    }
+    //退出到主菜单
+    public void QuitToMenuGame(){
+        
+    }
 
 
 }

@@ -6,8 +6,8 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     [Header("生命")]
-    public int curHealth;
-    public int maxHealth;
+    public float curHealth;
+    public float maxHealth;
     [Header("武器")]
     public float curHotTime;
     public float maxHotTime;

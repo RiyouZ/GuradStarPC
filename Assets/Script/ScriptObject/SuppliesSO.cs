@@ -11,5 +11,6 @@ public class SuppliesSO : ScriptableObject
     public float curLifeTime;
     public float maxLifeTime;
 
+    public int score;
     
 }

@@ -20,5 +20,5 @@ MonoBehaviour:
   coolTime: 0.2
   atkVal: 10
   isShoot: 0
-  isGrab: 1
+  isGrab: 0
   isDead: 0

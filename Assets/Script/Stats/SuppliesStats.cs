@@ -44,6 +44,21 @@ public class SuppliesStats : MonoBehaviour
         }
 
     }
+
+    public int Socore{
+        set{
+            stats.score = value;
+        }
+        get{
+            return stats.score;
+        }
+
+
+    }
+
+
+
+
     #endregion
 
     //恢复油量
@@ -55,5 +70,10 @@ public class SuppliesStats : MonoBehaviour
     public void Recover(CharacterStats character){
         character.CurHealth+=(int)RecoverValue;
     }
+    //加分
+    public void AddSocore(CharacterStats character){
+        character.socore+=Socore;
+    }
+    
 
 }

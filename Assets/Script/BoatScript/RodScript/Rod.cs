@@ -82,27 +82,39 @@ public class Rod : MonoBehaviour
         //操作区域检测
         if (coll.CompareTag("UpArea")){
             BoatController.Instance.boat.boatState.IsUp = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.red);
         }
         if (coll.CompareTag("DownArea")){
             BoatController.Instance.boat.boatState.IsDown = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.red);
         }
         if (coll.CompareTag("LeftArea")){
             BoatController.Instance.boat.boatState.IsLeft = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.red);
         }
         if (coll.CompareTag("RightArea")){
             BoatController.Instance.boat.boatState.IsRight = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.red);
         }
         if (coll.CompareTag("UpAndLeftArea")){
             BoatController.Instance.boat.boatState.IsUpAndLeft = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.red);
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.red);
         }
         if (coll.CompareTag("UpAndRightArea")){
             BoatController.Instance.boat.boatState.IsUpAndRight = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.red);
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.red);
         }
         if (coll.CompareTag("DownAndLeftArea")){
             BoatController.Instance.boat.boatState.IsDownAndLeft = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.red);
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.red);
         }
         if (coll.CompareTag("DownAndRightArea")){
             BoatController.Instance.boat.boatState.IsDownAndRight = true;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.red);
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.red);
         }
     }
     /// <summary>
@@ -114,27 +126,39 @@ public class Rod : MonoBehaviour
         //操作区域检测
         if (coll.CompareTag("UpArea")){
             BoatController.Instance.boat.boatState.IsUp = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.white);
         }
         if (coll.CompareTag("DownArea")){
             BoatController.Instance.boat.boatState.IsDown = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.white);
         }
         if (coll.CompareTag("LeftArea")){
             BoatController.Instance.boat.boatState.IsLeft = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.white);
         }
         if (coll.CompareTag("RightArea")){
             BoatController.Instance.boat.boatState.IsRight = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.white);
         }
         if (coll.CompareTag("UpAndLeftArea")){
             BoatController.Instance.boat.boatState.IsUpAndLeft = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.white);
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.white);
         }
         if (coll.CompareTag("UpAndRightArea")){
             BoatController.Instance.boat.boatState.IsUpAndRight = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonUp",Color.white);
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.white);
         }
         if (coll.CompareTag("DownAndLeftArea")){
             BoatController.Instance.boat.boatState.IsDownAndLeft = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.white);
+            ColorChangeManager.Instance.ChangeColor("ButtonLeft",Color.white);
         }
         if (coll.CompareTag("DownAndRightArea")){
             BoatController.Instance.boat.boatState.IsDownAndRight = false;
+            ColorChangeManager.Instance.ChangeColor("ButtonDown",Color.white);
+            ColorChangeManager.Instance.ChangeColor("ButtonRight",Color.white);
         }
 
         

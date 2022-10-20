@@ -17,6 +17,7 @@ public class FB_CHASE : _State<FriendBoat>
     {
         if(target.shootTarget==null){
             Debug.LogError("未找到追踪对象");
+            if(target.shootTargetList.Count!=0)target.shootTarget = target.shootTargetList[Random.Range(0,target.shootTargetList.Count-1)];
             return;
         }
         timer-=Time.deltaTime;

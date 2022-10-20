@@ -77,7 +77,6 @@ public class FriendBoat : MonoBehaviour
         EnemyManager.Instance.AddTargetList(this.gameObject);
         state.CurHealth = state.MaxHealth;
         //创建字典索引
-        //if(shootTargetList.Count!=0)shootTarget = shootTargetList[0];
         stateDic = new Dictionary<FBState, _State<FriendBoat>>();
         stateDic.Add(FBState.Chase,new FB_CHASE());
         stateDic.Add(FBState.Attack,new FB_ATTACK());
