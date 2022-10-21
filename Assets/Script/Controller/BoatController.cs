@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BoatController : Sigleton<BoatController>
 {
 
-    public GameObject boat;
-    public BoatStats boatState;
-    //旋转需采用局部坐标
-    public Transform boatRot;
+    public enum RotState{UP,DOWN,RIGHT,LEFT,NULL,UPANDLEFT,UPANDRIGHT,DOWNANDLFET,DOWNANDRIGHT};
+    public RotState rotState;
+    public Boat boat;
+    public Weapon weapon;
 
-    public Transform boatTs;
-    public Rigidbody boatRb;
+    public float mulitCoolHotTime;
 
-    [SerializeField]
-    private float rotX = 0;
-    private float rotZ = 0;
 
+    private Ray weaponRay;
+    private RaycastHit hitInfo;
+    
+    private Coroutine coolHotTimeCoroutine;
+
+    private bool isHotTime;
 
 
 
@@ -35,9 +38,16 @@ public class BoatController : Sigleton<BoatController>
     private void Update()
     {
         OperateBoatRotation();
-
-
-
+        //完全过热状态
+        if(PlayerManager.Instance.player.CurHotTime<=0)isHotTime = false;
+        if(PlayerManager.Instance.player.CurHotTime>=PlayerManager.Instance.player.MaxHotTime){
+            isHotTime = true;
+            coolHotTimeCoroutine = StartCoroutine("CoolHotTime");
+        }
+        if(PlayerManager.Instance.player.CurHotTime == 0&&isHotTime){
+            StopCoroutine(coolHotTimeCoroutine);
+        }
+        OperateShoot();
     }
 
     /// <summary>
@@ -46,84 +56,131 @@ public class BoatController : Sigleton<BoatController>
     private void FixedUpdate()
     {   
         OperateBoatForward();
-
     }
-
+    //初始化
     public void InitBoat(){
-        boat = GameObject.Find("BoatHull");
-        boatRot = GameObject.Find("BoatHull").GetComponent<Transform>();
-        boatState = boat.GetComponent<BoatStats>();
-        boatTs = boat.GetComponent<Transform>();
-        boatRb = boat.GetComponent<Rigidbody>();
-        boatRb.velocity = Vector3.zero;
-        boatState.CurOil = boatState.MaxOil;
-        boatState.IsUp = false;
-        boatState.IsDown = false;
-        boatState.IsLeft = false;
-        boatState.IsRight = false;
-        boatState.IsForward = false;
-        boatState.IsBrake = false;
+        boat = GameObject.Find("BoatHull").GetComponent<Boat>();
+        weapon = GameObject.Find("WeaponL").GetComponent<Weapon>();
     }
-
+    #region:基本移动逻辑
     public void OperateBoatRotation(){
-        if(boatState.IsDown){
-
-            boatRot.Rotate(new Vector3(boatState.RotSpeed*Time.deltaTime,0,0));
-        }
-        if(boatState.IsUp){
-
-            boatRot.Rotate(new Vector3(-boatState.RotSpeed*Time.deltaTime,0,0));
-        }
-        if(boatState.IsLeft){
-
-            boatRot.Rotate(new Vector3(0,0,boatState.RotSpeed*Time.deltaTime));
-        }
-        if(boatState.IsRight){
-
-            boatRot.Rotate(new Vector3(0,0,-boatState.RotSpeed*Time.deltaTime));
+        if(boat.boatState.IsUpAndLeft){
+            rotState = RotState.UPANDLEFT;
+        }else if(boat.boatState.IsUpAndRight){
+            rotState = RotState.UPANDRIGHT;
+        }else if(boat.boatState.IsDownAndLeft){
+            rotState = RotState.DOWNANDLFET;
+        }else if(boat.boatState.IsDownAndRight){
+            rotState = RotState.DOWNANDRIGHT;
+        }else if(boat.boatState.IsDown){
+            rotState = RotState.DOWN;
+        }else if(boat.boatState.IsUp){
+            rotState = RotState.UP;
+        }else if(boat.boatState.IsLeft){
+            rotState = RotState.LEFT;
+        }else if(boat.boatState.IsRight){
+            rotState = RotState.RIGHT;
+        }else{
+            return;
         }
         
+        switch(rotState){
+            case RotState.DOWN:
+                boat.RotDown();
+                break;
+            case RotState.UP:
+                boat.RotUp();
+                break;
+            case RotState.LEFT:
+                boat.RotLeft();
+                break;
+            case RotState.RIGHT:
+                boat.RotRight();
+                break;
+            case RotState.UPANDLEFT:
+                Debug.Log("UpLeft");
+                boat.RotUpAndLeft();
+                break;
+            case RotState.UPANDRIGHT:
+                boat.RotUpAndRight();
+                break;
+            case RotState.DOWNANDLFET:
+                boat.RotDownAndLeft();
+                break;
+            case RotState.DOWNANDRIGHT:
+                boat.RotDownAndRight();
+                break;
+            case RotState.NULL:
+                break;
+        }
     }
     
     public void OperateBoatForward(){
-        if(boatState.IsForward){
-
-            // Vector3 direct = (forwardPoint.localPosition-boatTs.position).normalized;
-            boatState.CurSpeed = boatState.CurSpeed+boatState.AccSpeed;
-            // boatRb.AddForceAtPosition(direct,forwardPoint.localPosition);
-
-            // if(boatState.IsDown){
-            //     boatRb.velocity = new Vector3(0,-1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsUp){
-            //     boatRb.velocity = new Vector3(0,1,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsLeft){
-            //     boatRb.velocity = new Vector3(1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else if(boatState.IsRight){
-            //     boatRb.velocity = new Vector3(-1,0,1)*boatState.CurSpeed*Time.fixedDeltaTime;
-            // }else{
-
-            // }
-
-           boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
+        if(PlayerManager.Instance.player.IsGrab==false)return;
+        if(boat.boatState.IsForward){
+            boat.boatState.CurSpeed = boat.boatState.CurSpeed+boat.boatState.AccSpeed;
+            boat.TsForward(boat.boatState.CurSpeed);
         }else{
-            if(boatState.IsBrake){
-                boatState.CurSpeed = boatState.CurSpeed-boatState.BrakeSpeed;
+            if(boat.boatState.IsBrake){
+                boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.BrakeSpeed;
             }else{
-                boatState.CurSpeed = boatState.CurSpeed-boatState.AccSpeed;
-
+                boat.boatState.CurSpeed = boat.boatState.CurSpeed-boat.boatState.AccSpeed;
             }
-            boatRb.AddRelativeForce(Vector3.forward*boatState.CurSpeed*Time.fixedDeltaTime);
+            boat.TsForward(boat.boatState.CurSpeed);
         }
-        if(boatState.CurSpeed==0)boatRb.velocity = Vector3.zero;
+        if(boat.boatState.CurSpeed==0)boat.TsBrake();
     }
-
+    
     public void IsForward(bool value){
-        boatState.IsForward = value;
+        boat.boatState.IsForward = value;
     }
 
 
     public void IsBrake(bool value){
-        boatState.IsBrake = value;
+        boat.boatState.IsBrake = value;
+    }
+    #endregion
+    
+    #region:攻击逻辑
+    public void OperateShoot(){
+        PlayerManager.Instance.player.CurCoolTime-=Time.deltaTime;
+        if(PlayerManager.Instance.player.CurCoolTime<=0){
+            if(PlayerManager.Instance.player.IsShoot&&PlayerManager.Instance.player.CurHotTime<PlayerManager.Instance.player.MaxHotTime&&!isHotTime){
+                boat.Shoot();
+                //武器加热
+                PlayerManager.Instance.player.CurHotTime+=(Time.deltaTime*10);
+                //射击间隔
+                PlayerManager.Instance.player.CurCoolTime = PlayerManager.Instance.player.CoolTime;
+            }
+        }
+        //武器冷却
+        if(!PlayerManager.Instance.player.IsShoot&&PlayerManager.Instance.player.CurHotTime>0)
+            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*mulitCoolHotTime);
+
+
+    }
+
+    IEnumerator CoolHotTime(){
+        while(PlayerManager.Instance.player.CurHotTime>0){
+            PlayerManager.Instance.player.CurHotTime-=(Time.deltaTime*mulitCoolHotTime);
+            yield return null;
+        }
+    } 
+
+
+
+    #endregion
+
+
+
+
+    //Debug
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        
     }
 
 }

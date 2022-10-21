@@ -6,14 +6,19 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     [Header("生命")]
-    public int curHealth;
-    public int maxHealth;
+    public float curHealth;
+    public float maxHealth;
     [Header("武器")]
-    public float hotTime;
-    public float curTime;
+    public float curHotTime;
+    public float maxHotTime;
+    public float curCoolTime;
     public float coolTime;
+    //攻击力
+    public int atkVal;
 
     [Header("操作状态")]
+
+    public bool isShoot;
     public bool isGrab;
     public bool isDead;
 

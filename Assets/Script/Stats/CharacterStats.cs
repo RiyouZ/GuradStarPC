@@ -4,10 +4,22 @@ public class CharacterStats:MonoBehaviour
 {
     public CharacterSO stats;
 
+    public CharacterSO tmpStats;
 
-    #region:赋值数值
+    public int socore;
+
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        if(tmpStats)stats = Instantiate(tmpStats);
+    }
+
+    #region:赋值数值 
     
-    public int CurHealth{
+    public float CurHealth{
         set{
             stats.curHealth = Mathf.Clamp(value,0,stats.maxHealth);
         }
@@ -15,7 +27,7 @@ public class CharacterStats:MonoBehaviour
             return stats.curHealth;
         }
     }
-    public int MaxHealth{
+    public float MaxHealth{
         set{
             stats.maxHealth = value;
         }
@@ -24,21 +36,41 @@ public class CharacterStats:MonoBehaviour
         }
 
     }
-    public float HotTime{
+    public int AtkVal{
         set{
-            stats.hotTime = value;
+            stats.atkVal = value;
         }
         get{
-            return stats.hotTime;
+            return stats.atkVal;
         }
 
     }
-    public float CurTime{
+    public float CurHotTime{
         set{
-            stats.curTime = Mathf.Max(0,CurTime);
+            stats.curHotTime = Mathf.Clamp(value,0,stats.maxHotTime);
         }
         get{
-            return stats.curTime;
+            return stats.curHotTime;
+        }
+
+    }
+
+    public float MaxHotTime{
+        set{
+            stats.maxHotTime = value;
+        }
+        get{
+            return stats.maxHotTime;
+        }
+    }
+
+    public float CurCoolTime{
+        set{
+            stats.curCoolTime = value;
+            stats.curCoolTime = Mathf.Max(0,stats.curCoolTime);
+        }
+        get{
+            return stats.curCoolTime;
         }
     }
     public float CoolTime{
@@ -50,6 +82,16 @@ public class CharacterStats:MonoBehaviour
         }
     }
 
+    public bool IsShoot{
+        set{
+            stats.isShoot = value;
+        }
+        get{
+            return stats.isShoot;
+        }
+
+    }
+
     public bool IsGrab{
         set{
             stats.isGrab = value;
@@ -58,7 +100,6 @@ public class CharacterStats:MonoBehaviour
             return stats.isGrab;
         }
     }
-
 
     public bool isDead{
         set{
@@ -76,6 +117,17 @@ public class CharacterStats:MonoBehaviour
 
     #endregion
 
+    #region:数值计算方法
+    //攻击计算
+
+    public float TakeDamage(CharacterStats attack,CharacterStats target){
+        target.CurHealth-=attack.AtkVal;
+        return target.CurHealth;
+    }
+
+
+
+    #endregion
 
 
 }

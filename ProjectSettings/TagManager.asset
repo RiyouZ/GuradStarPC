@@ -22,21 +22,30 @@ TagManager:
   - UpArea
   - RightArea
   - LeftArea
+  - Enemy
+  - Target
+  - FX
+  - PlayerBoat
+  - UpAndLeftArea
+  - UpAndRightArea
+  - DownAndLeftArea
+  - DownAndRightArea
+  - EdgeZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemyLayer
   - Water
   - UI
-  - 
-  - 
+  - BoatLayer
+  - Enviroment
   - IgnoreTeleportPointer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - OperatingLayer
+  - WeaponLayer
+  - SuppliesLayer
+  - FriendLayer
+  - Map
   - 
   - 
   - 

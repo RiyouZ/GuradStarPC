@@ -28,4 +28,9 @@ public class BoatSO : ScriptableObject
     public bool isBrake;
     public bool isUnpower;
 
+    public bool isUpAndLeft;
+    public bool isUpAndRight;
+    public bool isDownAndLeft;
+    public bool isDownAndRight;
+
 }

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2910722676171455056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2910722676171455062}
+  - component: {fileID: 2910722676171455063}
+  m_Layer: 0
+  m_Name: GameObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2910722676171455062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910722676171455056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5419922, z: 0.13000488}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2910722676171455063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910722676171455056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1423f067839b63429ce3adeaed48733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectName:
+  - EnemyBoat
+  - Oil
+  - Health
+  gameObjectList:
+  - {fileID: 5222129397969577575, guid: 8a5af4e4a4f1d494bbd2e7953ced136c, type: 3}
+  - {fileID: 7345645907561138257, guid: 66e9e58ee999f9e41b6e2d520cd18313, type: 3}
+  - {fileID: 890962236676536360, guid: e4a305cbfec07424eb17d8b3bcb14c4d, type: 3}
+  defaultCnt: 5
+  maxCnt: 10

@@ -5,6 +5,16 @@ using UnityEngine;
 public class BoatStats:MonoBehaviour
 {
     public BoatSO stats;
+    public BoatSO tmpStats;
+
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        if(tmpStats)stats = Instantiate(tmpStats);
+    }
 
     #region :数值赋值
 
@@ -57,7 +67,7 @@ public class BoatStats:MonoBehaviour
             stats.curOil = Mathf.Clamp(value,0,stats.maxOil);
         }
         get{
-            return stats.maxSpeed;
+            return stats.curOil;
         }
     }
     public float MaxOil{
@@ -129,17 +139,54 @@ public class BoatStats:MonoBehaviour
             return stats.isBrake;
         }
     }
+    public bool IsUpAndLeft{
+        set{
+            stats.isUpAndLeft = value;
+        }
+        get{
+            return stats.isUpAndLeft;
+        }
+    }
 
+    public bool IsUpAndRight{
+        set{
+            stats.isUpAndRight = value;
+        }
+        get{
+            return stats.isUpAndRight;
+        }
+    }
 
-
-
+    public bool IsDownAndLeft{
+        set{
+            stats.isDownAndLeft = value;
+        }
+        get{
+            return stats.isDownAndLeft;
+        }
+    }
+    public bool IsDownAndRight{
+        set{
+            stats.isDownAndRight = value;
+        }
+        get{
+            return stats.isDownAndRight;
+        }
+    }
 
 
 
 
     #endregion
 
+    #region :计算方法
+    //耗油
+    public void ConsumeOil(float spend){
+        CurOil-=spend;
+    }
 
+
+    #endregion
 
 }
 
