@@ -10,6 +10,8 @@ public class TimeManager : Sigleton<TimeManager>
 
     public float gameTime;
 
+    public float scaleTime = 0.65f;
+
 
 
     protected override void Awake(){
@@ -19,6 +21,7 @@ public class TimeManager : Sigleton<TimeManager>
     // Start is called before the first frame update
     void Start()
     {
+        SetGlobalTime(scaleTime);
     }
 
     // Update is called once per frame
@@ -40,6 +43,10 @@ public class TimeManager : Sigleton<TimeManager>
             return true;
         }
         return false;
+    }
+
+    public void SetGlobalTime(float t){
+        Time.timeScale = t;
     }
 
 }

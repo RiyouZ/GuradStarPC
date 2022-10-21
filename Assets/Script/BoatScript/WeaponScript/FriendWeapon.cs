@@ -21,7 +21,7 @@ public class FriendWeapon : Weapon
     {
         shootTimer-=Time.deltaTime;
         if(shootTimer<=0){
-           GameObject laser = LaserPool.Instance.Pop();
+           GameObject laser = LaserPool.Instance.Pop(target.position);
             laser.transform.position = origin.position;
             laser.GetComponent<Laser>().shootTarget = target.position;
             shootTimer = defaultShootTimer;

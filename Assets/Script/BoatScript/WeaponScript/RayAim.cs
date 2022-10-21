@@ -8,15 +8,19 @@ public class RayAim : MonoBehaviour
     public RaycastHit hitInfo;
 
     public Vector3 target;
+
     // Update is called once per frame
     void Update()
     {
-
-        Ray ray = new Ray(camera.transform.position,transform.position-camera.transform.position);
-        if(Physics.Raycast(ray,out hitInfo))
+        Ray ray = new Ray(transform.position,transform.forward);
+        if(Physics.Raycast(ray,out hitInfo)){
             target = hitInfo.point;
-        else
-            target = (transform.position-camera.transform.position)*200;
+        }
+        else{
+            target = new Vector3(transform.position.x,transform.position.y,transform.position.z+200);
+        }
+
+        Debug.DrawLine(transform.position,target-transform.position,Color.blue);
     }
     //Debug
     /// <summary>
@@ -24,8 +28,9 @@ public class RayAim : MonoBehaviour
     /// </summary>
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(camera.transform.position,(transform.position-camera.transform.position)*100);
+        Gizmos.color = Color.white;
+
+        Gizmos.DrawRay(transform.position,target-transform.position);
 
     }
 

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c950b7706ec043b499e070006a819a77, type: 3}
   m_Name: BoatData
   m_EditorClassIdentifier: 
-  brakeSpeed: 10
+  brakeSpeed: 100
   MultiBrakeSpeed: 10
   rotSpeed: 60
   curSpeed: 0
-  maxSpeed: 2500
-  accSpeed: 20
-  curOil: 49.668137
+  maxSpeed: 7500
+  accSpeed: 70
+  curOil: 50
   maxOil: 50
   isLeft: 0
   isRight: 0

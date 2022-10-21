@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309815371037532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.205}
+  m_LocalPosition: {x: 0, y: 0, z: -5.24}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children: []
   m_Father: {fileID: 4638688750665566}
@@ -9750,11 +9750,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitClip: {fileID: 0}
   impact: {fileID: 1879272669879180, guid: 12b4684b6dfa54542af44b834b325d62, type: 3}
-  rb: {fileID: 0}
+  rb: {fileID: 54929995699331496}
   isShoot: 0
-  shootTarget: {x: 0, y: 0, z: 0}
+  shootTarget: {fileID: 0}
   speed: 2
+  maxspeed: 10
   multiSpeed: 2
+  isLook: 0
 --- !u!65 &7438832992183357826
 BoxCollider:
   m_ObjectHideFlags: 0

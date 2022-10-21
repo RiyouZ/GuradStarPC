@@ -139,12 +139,12 @@ public class ExplodingProjectile : MonoBehaviour
         }
     }
 
-    void Explode()
-    {
-        //Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
-        LaserPool.Instance.Pop();
-        //Destroy(gameObject);
-        LaserPool.Instance.Push(gameObject);
-    }
+    // void Explode()
+    // {
+    //     //Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
+    //     LaserPool.Instance.Pop();
+    //     //Destroy(gameObject);
+    //     LaserPool.Instance.Push(gameObject);
+    // }
 
 }

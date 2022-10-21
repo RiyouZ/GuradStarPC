@@ -8,14 +8,19 @@ public class GameManager : Sigleton<GameManager>
         DEFAULT,
         WIN,
         DEFEAT,
-        PAUSE
+        PAUSE,
+        CONTINUE
     };
 
     public GameState gameState = GameState.DEFAULT;
     public CharacterStats player;
     public CharacterStats enemy;
     public BoatStats boat;
+
+    public GameObject Line;
     public int enemyCnt;
+
+    public bool isPause;
     
     
 
@@ -26,6 +31,12 @@ public class GameManager : Sigleton<GameManager>
     {
         base.Awake();
         //GamePause();
+        Line = GameObject.Find("PlayerLine");
+    }
+
+    private void Start() {
+        Line.SetActive(false);
+        
     }
 
     /// <summary>
@@ -45,6 +56,10 @@ public class GameManager : Sigleton<GameManager>
             gameState = GameState.DEFEAT;
         }else if(enemyCnt<=0){
             gameState = GameState.WIN;
+        }else if(isPause){
+            gameState = GameState.PAUSE;
+        }else if(!isPause){
+            gameState = GameState.CONTINUE;
         }else{
             return;
         }
@@ -52,22 +67,44 @@ public class GameManager : Sigleton<GameManager>
             case GameState.WIN:
                 Debug.LogWarning("Win!");
                 WinGame();
+                Line.SetActive(true);
                 break;
             case GameState.DEFEAT:
                 Debug.LogWarning("Deafeat!");
+                Line.SetActive(true);
                 DefeatGame();
+                break;
+            case GameState.PAUSE:
+                PauseMenuGame();
+                Line.SetActive(true);
+                break;
+            case GameState.CONTINUE:
+                ContinueGame();
+                Line.SetActive(false);
                 break;
         }
 
     }
     public void GameStart(){
-        Time.timeScale = 1;
+        Time.timeScale = TimeManager.Instance.scaleTime;
     }
 
     public void GamePause(){
         Time.timeScale = 0;
     }
 
+    public void SetVRPause(bool value){
+        isPause = value;
+    }
+
+    public void SetPause(){
+        Debug.Log("启动菜单");
+        isPause = true;
+    }
+
+    public void SetContinue(){
+        isPause = false;
+    }
 
     public void WinGame(){
         GamePause();
@@ -92,6 +129,7 @@ public class GameManager : Sigleton<GameManager>
 
     public void RestartGame(){
         //重置场景
+        UIManager.Instance.UILoadSence("GameSence");
     }
     //退出到主菜单
     public void QuitToMenuGame(){

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000014165673988}
   - component: {fileID: 198000013313792356}
   - component: {fileID: 199000011488735614}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,7 +4885,7 @@ GameObject:
   - component: {fileID: 4000013218062066}
   - component: {fileID: 198000013265374424}
   - component: {fileID: 199000010163203960}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9633,7 +9633,7 @@ GameObject:
   - component: {fileID: 4000014009676426}
   - component: {fileID: 198000010667505060}
   - component: {fileID: 199000011299358050}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DebrisSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14359,9 +14359,9 @@ GameObject:
   - component: {fileID: 4000010212820824}
   - component: {fileID: 198000012777718758}
   - component: {fileID: 199000010553669322}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BigExplosionEffect 1
-  m_TagString: Untagged
+  m_TagString: FX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19085,7 +19085,7 @@ GameObject:
   - component: {fileID: 4000010915645814}
   - component: {fileID: 198000011910556128}
   - component: {fileID: 199000012456312032}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23824,7 +23824,7 @@ GameObject:
   - component: {fileID: 4000011339630964}
   - component: {fileID: 198000012431916440}
   - component: {fileID: 199000014197859376}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28525,7 +28525,7 @@ GameObject:
   - component: {fileID: 4000011767457286}
   - component: {fileID: 198000011338119534}
   - component: {fileID: 199000010295807952}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DerisFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33233,7 +33233,7 @@ GameObject:
   - component: {fileID: 4656244547946864}
   - component: {fileID: 198014128099786538}
   - component: {fileID: 199087481150452838}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}

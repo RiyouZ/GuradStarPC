@@ -7,6 +7,14 @@ public class destroyMe : MonoBehaviour{
     public float deathtimer = 10;
 
 
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    private void OnEnable()
+    {
+        
+    }
+
 	// Use this for initialization
 	void Start () {
 	

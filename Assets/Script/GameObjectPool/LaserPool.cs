@@ -33,13 +33,15 @@ public class LaserPool : Sigleton<LaserPool>
         }
     }
 
-    public GameObject Pop(){
+    public GameObject Pop(Vector3 target){
         GameObject tmp;
         if(friendPool.Count>0){
             tmp = friendPool.Dequeue();
             tmp.SetActive(true);
+            tmp.transform.LookAt(target);
         }else{
             tmp = Instantiate(friendLaser,this.transform);
+            tmp.transform.LookAt(target);
         }
         return tmp;
     }
@@ -47,6 +49,7 @@ public class LaserPool : Sigleton<LaserPool>
     public void Push(GameObject tmp){
         if(friendPool.Count<=maxCnt){
             if(!friendPool.Contains(tmp)){
+                tmp.transform.rotation = Quaternion.identity;
                 tmp.SetActive(false);
                 friendPool.Enqueue(tmp);
             }

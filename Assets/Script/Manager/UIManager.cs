@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using Zinnia.Data.Type;
 
 public class UIManager : Sigleton<UIManager>
 {
@@ -84,8 +84,45 @@ public class UIManager : Sigleton<UIManager>
 
     //读取场景
     public void UILoadSence(string sence){
-        SceneManager.LoadScene(sence);
+        StartCoroutine(LoadGame(sence));
     }
+    IEnumerator LoadGame(string sence){
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sence);
+        //operation.allowSceneActivation = false;
+        if(!operation.isDone){
+            LoadBall.Instance.StartLoad();
+            yield return null;
+        }
+        //operation.allowSceneActivation = true;
+    }
+
+    //空间按钮
+    public void ButtonLoadGame(SurfaceData value){
+        StartCoroutine(LoadGame("GameSence"));
+    }
+
+    public void ButtonLoadMain(SurfaceData value){
+        StartCoroutine(LoadGame("MainSence"));
+    }
+
+    public void ButtonContinue(SurfaceData value){
+        GameManager.Instance.ContinueGame();
+    }
+
+    public void OpenInstruction(SurfaceData value){
+        OpenUI("InstructionCanvas");
+    }
+    public void CloseInstruction(){
+        CloseUI("InstructionCanvas");
+    }
+
+    public void OpenMember(SurfaceData value){
+        OpenUI("MemberCanvas");
+    }
+    public void CloseMember(){
+        CloseUI("MemberCanvas");
+    }
+
 
 
 }

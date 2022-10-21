@@ -49,7 +49,7 @@ public class GameObjectPool : Sigleton<GameObjectPool>
             tmp.name = item.name;
             pool.Add(tmp.name,new Queue<GameObject>());
             pool[tmp.name].Enqueue(item);
-            Debug.Log("未在池内找到对象");
+            //Debug.Log("未在池内找到对象");
         }
         tmp.SetActive(true);
         return tmp;
@@ -58,20 +58,20 @@ public class GameObjectPool : Sigleton<GameObjectPool>
     public virtual void Push(GameObject item){
         if(pool.ContainsKey(item.name)){
             if(pool[item.name].Count<=maxCnt){
-                Debug.LogWarning("池内有此对象");
+                //Debug.LogWarning("池内有此对象");
                 pool[item.name].Enqueue(item);
                 item.SetActive(false);
                 return;
             }
         }else if(!pool.ContainsKey(item.name)){
-            Debug.LogWarning("池内没有此对象");
+            //Debug.LogWarning("池内没有此对象");
             GameObject tmp = new GameObject();
             tmp = Instantiate(tmp,this.transform);
             tmp.name = item.name;
             pool.Add(tmp.name,new Queue<GameObject>());    
             pool[tmp.name].Enqueue(tmp);
             tmp.SetActive(false);
-            Debug.LogWarning("已加入池内");
+            //Debug.LogWarning("已加入池内");
             return;
         }else{
             Destroy(item);

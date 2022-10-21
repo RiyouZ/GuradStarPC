@@ -172,14 +172,14 @@ public class FriendBoat : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position,attckRadius);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position,attckRadius+accRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(weaponL.transform.position,shootTarget.transform.position);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawWireSphere(transform.position,attckRadius);
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireSphere(transform.position,attckRadius+accRadius);
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawLine(weaponL.transform.position,shootTarget.transform.position);
+    // }
 
 }

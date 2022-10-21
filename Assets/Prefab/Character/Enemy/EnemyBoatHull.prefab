@@ -996,20 +996,20 @@ MonoBehaviour:
   destoryEffect: {fileID: 1000011797152326, guid: b7b79b77d854c1e4b919b63283eac6a2,
     type: 3}
   attckRadius: 130
-  accRadius: 130
-  accSpeed: 50
-  maxAccSpeed: 200
+  accRadius: 97.5
+  accSpeed: 37.5
+  maxAccSpeed: 150
   rotSpeed: 0
-  maxRotSpeed: 180
+  maxRotSpeed: 135
   curSpeed: 0
   preSpeed: 0
-  OutAttackAreaMultiSpeed: 0.05
-  OutAttackAreaMaxMultiSpeed: 0.7
-  InForwardAttackAreaMultiSpeed: 1
-  InForwardAttackAreaMaxMultiSpeed: 1
-  InBackAttackAreaMultiSpeed: 10
-  InBackAttackAreaMaxMultiSpeed: 1
-  InAttackAreaMinMultiSpeed: 0.4
+  OutAttackAreaMultiSpeed: 0.0375
+  OutAttackAreaMaxMultiSpeed: 0.525
+  InForwardAttackAreaMultiSpeed: 0.75
+  InForwardAttackAreaMaxMultiSpeed: 0.75
+  InBackAttackAreaMultiSpeed: 7.5
+  InBackAttackAreaMaxMultiSpeed: 0.75
+  InAttackAreaMinMultiSpeed: 0.3
 --- !u!114 &5222129397969577564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1619,6 +1619,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8712857888592704104, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8712857888592704104, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: 0
       objectReference: {fileID: 0}
@@ -1717,10 +1722,25 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: -5346044106234109611, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3931488412318682284, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -3931488412318682284, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215369224349711107, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 215369224349711107, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
@@ -1734,8 +1754,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102371875064476901, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2102371875064476901, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
@@ -1756,6 +1786,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182451424620208793, guid: e03f51befe3479e449d1434d160fdd81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4182451424620208793, guid: e03f51befe3479e449d1434d160fdd81,
         type: 3}
